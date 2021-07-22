@@ -77,9 +77,11 @@ class Turn {
     document.documentElement.classList.add(`turn-${type}`)
 
     Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach((element) => {
-      (element.dataset[`turn${capitalize(type)}`] || '').split(' ').forEach((c) => {
-        element.classList.add(c)
-        this[`${type}Classes`].add(c)
+      (element.dataset[`turn${capitalize(type)}`]).split(/\s+/).forEach((klass) => {
+        if (klass) {
+          element.classList.add(klass)
+          this[`${type}Classes`].add(klass)
+        }
       })
     })
   }
