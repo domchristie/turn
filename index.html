@@ -19,6 +19,10 @@
       color: #666;
     }
 
+    a {
+      color: #06f;
+    }
+
     nav {
       display: flex;
       background-color: white;
@@ -30,7 +34,6 @@
 
     nav a {
       display: block;
-      color: #06f;
       font-weight: bold;
       text-decoration: none;
     }
@@ -41,6 +44,10 @@
 
     nav a + a {
       margin-left: 2.5%;
+    }
+
+    nav a:last-child {
+      margin-left: auto;
     }
 
     main {
@@ -69,9 +76,11 @@
   <nav>
     <a href="index.html" aria-current>Lorem</a>
     <a href="one.html">Ipsum</a>
+    <a href="https://github.com/domchristie/turn">Source</a>
   </nav>
   <main data-turn-enter data-turn-exit>
     <h1 data-turn-enter data-turn-exit>Lorem</h1>
+    <p>A demonstration of <a href="https://github.com/domchristie/turn">Turn</a>: a starting point for page transitions in Turbo apps.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
