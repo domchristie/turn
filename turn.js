@@ -88,7 +88,7 @@ class Turn {
     document.documentElement.classList.remove(`turn-${type}`)
 
     Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach((element) => {
-      this[`${type}Classes`].forEach((c) => element.classList.remove(c))
+      this[`${type}Classes`].forEach((klass) => element.classList.remove(klass))
     })
   }
 }
