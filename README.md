@@ -56,7 +56,7 @@ Turn adds exit and enter classes at the appropriate times like so:
 1. on `turbo:visit` add the exit classes
 2. pause `turbo:before-render` _(wait for exit animations to complete before resuming)_
 3. on `turbo:render`, remove exit classes and add the enter classes
-4. on 'turbo:load', wait for the enter animations to complete before removing the enter classes
+4. on `turbo:load`, wait for the enter animations to complete before removing the enter classes
 
 ## License
 Copyright © 2021+ Dom Christie and released under the MIT license.
