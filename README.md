@@ -58,5 +58,9 @@ Turn adds exit and enter classes at the appropriate times like so:
 3. on `turbo:render`, remove exit classes and add the enter classes
 4. on `turbo:load`, wait for the enter animations to complete before removing the enter classes
 
+## Credits
+
+Default fade in/out animations adapted from [Jon Yablonski](https://jonyablonski.com/)'s [Humane By Design](https://humanebydesign.com/).
+
 ## License
 Copyright © 2021+ Dom Christie and released under the MIT license.
