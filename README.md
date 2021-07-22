@@ -44,8 +44,8 @@ The values set in the `data-turn-exit` and `data-turn-enter` attributes will be 
 
 ```html
 <main
-  data-turn-exit="animated animate__fadeOutUp"
-  data-turn-enter="animated animate__fadeInUp">
+  data-turn-exit="animate__animated animate__fadeOutUp"
+  data-turn-enter="animate__animated animate__fadeInUp">
   …
 </main>
 ```
