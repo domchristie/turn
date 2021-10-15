@@ -1,6 +1,5 @@
 # Turn
 A starting point for animating page transitions in Turbo apps.
-**Note**: this is experimental and currently requires Turbo v7.0.0-rc.1.
 
 ## Basic Usage
 
