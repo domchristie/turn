@@ -49,6 +49,10 @@ The values set in the `data-turn-exit` and `data-turn-enter` attributes will be 
 </main>
 ```
 
+## Not seeing animations?
+
+Check your device preferences to see if you have requested reduced motion. Turn will only animate transitions when the `prefers-reduced-motion` media query does not match `reduce`.
+
 ## How does it work?
 
 Turn adds exit and enter classes at the appropriate times like so:
