@@ -78,6 +78,37 @@ Then in your HTML:
 </main>
 ```
 
+## Tip & Tricks
+
+### 1. Animate Changes
+Avoid animating the whole `body`. Animations should target elements that change on navigation. So avoid animating persistent headers and instead animate the `main` element or just the panels/cards within it.
+
+### 2. Nesting
+Nesting animating elements draws attention and brings screens to life. Add `data-turn-exit`/``data-turn-enter` attributes to elements such as headings and key images within an animating container. The compound animation effects means they'll exit faster, and enter slower than other elements. For example:
+```html
+<main data-turn-exit data-turn-enter>
+  <h1 data-turn-exit data-turn-enter>Hello, world!</h1>
+</main>
+```
+
+### 3. Loading Spinner
+Exit animations on slow requests can leave users with a blank screen. Improve the experience with a loading spinner that appears a short time after the exit animation. For example, if your exit animation take 600ms, add a spinner that starts appearing 700ms after that by using `transition-delay`. This spinner can live permanently in the `body` and only transition when the `turn-exit` class is applied:
+
+```css
+.spinner {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 100ms;
+  transition-delay: 700ms
+}
+html.turn-exit .spinner {
+  opacity: 1;
+}
+```
+
 ## Not seeing animations?
 
 Check your device preferences to see if you have requested reduced motion. Turn will only animate transitions when the `prefers-reduced-motion` media query does not match `reduce`.
