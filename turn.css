@@ -1,39 +1,59 @@
 [data-turn-exit],
-[data-turn-enter] {
+[data-turn-enter],
+[data-turn-restore-exit],
+[data-turn-restore-enter] {
   animation-timing-function: cubic-bezier(0.65, 0.05, 0.35, 1);
   animation-fill-mode: forwards;
 }
 
+html.turn-restore-exit [data-turn-exit],
 html.turn-exit [data-turn-exit] {
-  animation-name: fade-out-up;
-  animation-duration: .3s;
+  animation-name: fade-scale-out;
+  animation-duration: .2s;
 }
 
 html.turn-enter [data-turn-enter] {
-  animation-name: fade-in-up;
-  animation-duration: .6s;
+  animation-name: fade-in-down;
+  animation-duration: .4s;
 }
 
-@keyframes fade-out-up {
-  0% {
-   opacity: 1;
-   transform: translateZ(0)
-  }
+html.turn-restore-enter [data-turn-enter] {
+  animation-name: fade-scale-in;
+  animation-duration: .2s;
+}
 
-  100% {
+@keyframes fade-in-down {
+  0% {
    opacity: 0;
    transform: translate3d(0, -4rem, 0)
   }
-}
-
-@keyframes fade-in-up {
-  0% {
-   opacity: 0;
-   transform: translate3d(0, 4rem, 0)
-  }
 
   100% {
    opacity: 1;
    transform: translateZ(0)
+  }
+}
+
+@keyframes fade-scale-in {
+  0% {
+   opacity: 0;
+   transform: scale(90%)
+  }
+
+  100% {
+   opacity: 1;
+   transform: scale(1)
+  }
+}
+
+@keyframes fade-scale-out {
+  0% {
+   opacity: 1;
+/*    transform: translateZ(0) */
+  }
+
+  100% {
+   opacity: 0;
+   transform: scale(90%)
   }
 }
