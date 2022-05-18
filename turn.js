@@ -62,6 +62,11 @@ class Turn {
     this.removeClasses('enter')
   }
 
+  abort () {
+    this.removeClasses('exit')
+    this.removeClasses('enter')
+  }
+
   get shouldAnimateEnter () {
     if (this.action === 'restore') return false
     if (this.isPreview) return true
@@ -112,6 +117,7 @@ Turn.stop = function () {
 
 Turn.eventListeners = {
   'turbo:visit': function (event) {
+    if (this.currentTurn) this.currentTurn.abort()
     this.currentTurn = new this(event.detail.action)
     this.currentTurn.exit()
   }.bind(Turn),
