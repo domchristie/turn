@@ -33,8 +33,6 @@ class Turn {
   }
 
   async beforeEnter (event) {
-    if (this.action === 'restore') return
-
     event.preventDefault()
 
     if (this.isPreview) {
@@ -63,7 +61,7 @@ class Turn {
   }
 
   get shouldAnimateEnter () {
-    if (this.action === 'restore') return false
+    if (this.action === 'restore') return true
     if (this.isPreview) return true
     if (this.hasPreview) return false
     return true
@@ -73,9 +71,14 @@ class Turn {
     return document.documentElement.hasAttribute('data-turbo-preview')
   }
 
-  addClasses (type) {
-    document.documentElement.classList.add(`turn-${type}`)
+  className (type) {
+    if (this.action === 'restore') return `turn-restore-${type}`
+    return `turn-${type}`
+  }
 
+  addClasses (type) {
+    document.documentElement.classList.add(this.className(type))
+    // debugger;
     Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach((element) => {
       (element.dataset[`turn${capitalize(type)}`]).split(/\s+/).forEach((klass) => {
         if (klass) {
@@ -87,8 +90,7 @@ class Turn {
   }
 
   removeClasses (type) {
-    document.documentElement.classList.remove(`turn-${type}`)
-
+    document.documentElement.classList.remove(this.className(type))
     Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach((element) => {
       this[`${type}Classes`].forEach((klass) => element.classList.remove(klass))
     })
