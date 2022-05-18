@@ -34,7 +34,7 @@ html.turn-enter [data-turn-enter] {
 }
 ```
 
-This is how the `turn.css` is organized, so you may want to get rid of that file altogether. `animation-fill-mode: forwards` is recommended to prevent your transitions from jumping back.
+This is how `turn.css` is organized, so you may want to get rid of that file altogether. `animation-fill-mode: forwards` is recommended to prevent your transitions from jumping back.
 
 ### Custom Class Names
 
@@ -84,7 +84,7 @@ Then in your HTML:
 Avoid animating the whole `body`. Animations should target elements that change on navigation. So avoid animating persistent headers and instead animate the `main` element or just the panels/cards within it.
 
 ### 2. Nesting
-Nesting animating elements draws attention and brings screens to life. Add `data-turn-exit`/``data-turn-enter` attributes to elements such as headings and key images within an animating container. The compound animation effects means they'll exit faster, and enter slower than other elements. For example:
+Nesting animating elements draws attention and brings screens to life. Add `data-turn-exit`/`data-turn-enter` attributes to elements such as headings and key images within an animating container. The compound animation effects means they'll exit faster, and enter slower than other elements. For example:
 ```html
 <main data-turn-exit data-turn-enter>
   <h1 data-turn-exit data-turn-enter>Hello, world!</h1>
