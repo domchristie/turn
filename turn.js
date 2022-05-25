@@ -129,6 +129,11 @@ Turn.eventListeners = {
   }.bind(Turn),
   'turbo:load': function () {
     if (this.currentTurn) this.currentTurn.complete()
+  }.bind(Turn),
+  'popstate': function () {
+    if (this.currentTurn && this.currentTurn.action !== 'restore') {
+      this.currentTurn.abort()
+    }
   }.bind(Turn)
 }
 
