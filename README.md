@@ -102,10 +102,10 @@ Exit animations on slow requests can leave users with a blank screen. Improve th
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 100ms;
-  transition-delay: 700ms
 }
 html.turn-exit .spinner {
   opacity: 1;
+  transition-delay: 700ms
 }
 ```
 
