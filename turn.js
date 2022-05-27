@@ -23,13 +23,18 @@
 class Turn {
   constructor (action) {
     this.action = action
+    this.beforeExitClasses = new Set()
     this.exitClasses = new Set()
     this.enterClasses = new Set()
   }
 
   exit () {
     this.animateOut = animationsEnd('[data-turn-exit]')
-    this.addClasses('exit')
+    this.addClasses('before-exit')
+    requestAnimationFrame(() => {
+      this.addClasses('exit')
+      this.removeClasses('before-exit')
+    })
   }
 
   async beforeEnter (event) {
@@ -63,6 +68,7 @@ class Turn {
   }
 
   abort () {
+    this.removeClasses('before-exit')
     this.removeClasses('exit')
     this.removeClasses('enter')
   }
@@ -82,10 +88,10 @@ class Turn {
     document.documentElement.classList.add(`turn-${type}`)
 
     Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach((element) => {
-      (element.dataset[`turn${capitalize(type)}`]).split(/\s+/).forEach((klass) => {
+      element.dataset[`turn${pascalCase(type)}`].split(/\s+/).forEach((klass) => {
         if (klass) {
           element.classList.add(klass)
-          this[`${type}Classes`].add(klass)
+          this[`${camelCase(type)}Classes`].add(klass)
         }
       })
     })
@@ -95,7 +101,7 @@ class Turn {
     document.documentElement.classList.remove(`turn-${type}`)
 
     Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach((element) => {
-      this[`${type}Classes`].forEach((klass) => element.classList.remove(klass))
+      this[`${camelCase(type)}Classes`].forEach((klass) => element.classList.remove(klass))
     })
   }
 }
@@ -158,6 +164,16 @@ function animationsEnd (selector) {
       element.addEventListener('animationend', listener)
     })
   }))
+}
+
+function pascalCase (string) {
+  return string.split(/[^\w]/).map(capitalize).join('')
+}
+
+function camelCase (string) {
+  return string.split(/[^\w]/).map(
+    (w, i) => i === 0 ? w.toLowerCase() : capitalize(w)
+  ).join('')
 }
 
 function capitalize (string) {

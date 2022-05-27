@@ -10,7 +10,7 @@ A starting point for animating page transitions in [Turbo Drive](https://turbo.h
 
 ## Customizing Animations
 
-Turn adds `turn-exit` and `turn-enter` classes to the HTML element at the appropriate times. Apply your own animations by scoping your animation rules with this selector. For example:
+Turn adds `turn-before-exit`, `turn-exit`, and `turn-enter` classes to the HTML element at the appropriate times. Apply your own animations by scoping your animation rules with this selector. For example:
 
 ```css
 html.turn-exit [data-turn-exit] {
@@ -91,7 +91,17 @@ Nesting animating elements draws attention and brings screens to life. Add `data
 </main>
 ```
 
-### 3. Loading Spinner
+### 3. Optimizing Animations
+Jumpy exit animations can be prevented using the `will-change` CSS property. Turn adds a `turn-before-exit` class to the HTML element just before adding the exit classes. This provides an opportunity to notify the browser of upcoming changes. For example, by default `turn.css` does the following:
+
+```css
+html.turn-before-exit [data-turn-exit],
+html.turn-exit [data-turn-exit] {
+  will-change: transform, opacity;
+}
+```
+
+### 4. Loading Spinner
 Exit animations on slow requests can leave users with a blank screen. Improve the experience with a loading spinner that appears a short time after the exit animation. For example, if your exit animation take 600ms, add a spinner that starts appearing 700ms after that by using `transition-delay`. This spinner can live permanently in the `body` and only transition when the `turn-exit` class is applied:
 
 ```css
