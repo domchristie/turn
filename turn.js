@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-class Turn {
+export default class Turn {
   constructor (action) {
     this.action = action
     this.beforeExitClasses = new Set()

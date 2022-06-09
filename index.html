@@ -69,8 +69,10 @@
   </style>
   <link rel="stylesheet" href="./turn.css">
   <script src="https://unpkg.com/@hotwired/turbo@7.0.1/dist/turbo.es2017-umd.js"></script>
-  <script src="./turn.js"></script>
-  <script>Turn.start()</script>
+  <script type="module">
+    import Turn from './turn.js'
+    Turn.start()
+  </script>
 </head>
 <body>
   <nav>
