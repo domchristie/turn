@@ -21,14 +21,14 @@
 // SOFTWARE.
 
 class Turn {
-  constructor (action) {
+  constructor(action) {
     this.action = action
     this.beforeExitClasses = new Set()
     this.exitClasses = new Set()
     this.enterClasses = new Set()
   }
 
-  exit () {
+  exit() {
     this.animateOut = animationsEnd('[data-turn-exit]')
     this.addClasses('before-exit')
     requestAnimationFrame(() => {
@@ -37,7 +37,7 @@ class Turn {
     })
   }
 
-  async beforeEnter (event) {
+  async beforeEnter(event) {
     if (this.action === 'restore') return
 
     event.preventDefault()
@@ -53,7 +53,7 @@ class Turn {
     event.detail.resume()
   }
 
-  async enter () {
+  async enter() {
     this.removeClasses('exit')
 
     if (this.shouldAnimateEnter) {
@@ -62,47 +62,55 @@ class Turn {
     }
   }
 
-  async complete () {
+  async complete() {
     await this.animateIn
     this.removeClasses('enter')
   }
 
-  abort () {
+  abort() {
     this.removeClasses('before-exit')
     this.removeClasses('exit')
     this.removeClasses('enter')
   }
 
-  get shouldAnimateEnter () {
+  get shouldAnimateEnter() {
     if (this.action === 'restore') return false
     if (this.isPreview) return true
     if (this.hasPreview) return false
     return true
   }
 
-  get isPreview () {
+  get isPreview() {
     return document.documentElement.hasAttribute('data-turbo-preview')
   }
 
-  addClasses (type) {
+  addClasses(type) {
     document.documentElement.classList.add(`turn-${type}`)
 
-    Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach((element) => {
-      element.dataset[`turn${pascalCase(type)}`].split(/\s+/).forEach((klass) => {
-        if (klass) {
-          element.classList.add(klass)
-          this[`${camelCase(type)}Classes`].add(klass)
-        }
-      })
-    })
+    Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach(
+      (element) => {
+        element.dataset[`turn${pascalCase(type)}`]
+          .split(/\s+/)
+          .forEach((klass) => {
+            if (klass) {
+              element.classList.add(klass)
+              this[`${camelCase(type)}Classes`].add(klass)
+            }
+          })
+      }
+    )
   }
 
-  removeClasses (type) {
+  removeClasses(type) {
     document.documentElement.classList.remove(`turn-${type}`)
 
-    Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach((element) => {
-      this[`${camelCase(type)}Classes`].forEach((klass) => element.classList.remove(klass))
-    })
+    Array.from(document.querySelectorAll(`[data-turn-${type}]`)).forEach(
+      (element) => {
+        this[`${camelCase(type)}Classes`].forEach((klass) =>
+          element.classList.remove(klass)
+        )
+      }
+    )
   }
 }
 
@@ -136,46 +144,56 @@ Turn.eventListeners = {
   'turbo:load': function () {
     if (this.currentTurn) this.currentTurn.complete()
   }.bind(Turn),
-  'popstate': function () {
+  popstate: function () {
     if (this.currentTurn && this.currentTurn.action !== 'restore') {
       this.currentTurn.abort()
     }
-  }.bind(Turn)
+  }.bind(Turn),
 }
 
-function prefersReducedMotion () {
+function prefersReducedMotion() {
   const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
   return !mediaQuery || mediaQuery.matches
 }
 
-function motionSafe () {
+function motionSafe() {
   return !prefersReducedMotion()
 }
 
-function animationsEnd (selector) {
+function animationsEnd(selector) {
   const elements = [...document.querySelectorAll(selector)]
 
-  return Promise.all(elements.map((element) => {
-    return new Promise((resolve) => {
-      function listener () {
-        element.removeEventListener('animationend', listener)
-        resolve()
-      }
-      element.addEventListener('animationend', listener)
+  return Promise.all(
+    elements.map((element) => {
+      return new Promise((resolve) => {
+        function listener() {
+          element.removeEventListener('animationend', listener)
+          resolve()
+        }
+        element.addEventListener('animationend', listener)
+      })
     })
-  }))
+  )
 }
 
-function pascalCase (string) {
+function pascalCase(string) {
   return string.split(/[^\w]/).map(capitalize).join('')
 }
 
-function camelCase (string) {
-  return string.split(/[^\w]/).map(
-    (w, i) => i === 0 ? w.toLowerCase() : capitalize(w)
-  ).join('')
+function camelCase(string) {
+  return string
+    .split(/[^\w]/)
+    .map((w, i) => (i === 0 ? w.toLowerCase() : capitalize(w)))
+    .join('')
 }
 
-function capitalize (string) {
+function capitalize(string) {
   return string.replace(/^\w/, (c) => c.toUpperCase())
 }
+
+// Do not run if page requested = current page
+document.addEventListener('turbo:before-visit', (event) => {
+  if (event.detail.url == window.location.href) {
+    event.preventDefault()
+  }
+})
