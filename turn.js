@@ -118,13 +118,18 @@ Turn.stop = function () {
   for (var event in this.eventListeners) {
     removeEventListener(event, this.eventListeners[event])
   }
-  delete this.currentTurn
+  this.currentTurn = new NullTurn
+}
+
+Turn.create = function (event) {
+  const Klass = document.body.dataset.turn === 'false' ? NullTurn : Turn
+  return new Klass(event.detail.action)
 }
 
 Turn.eventListeners = {
   'turbo:visit': function (event) {
-    if (this.currentTurn) this.currentTurn.abort()
-    this.currentTurn = new this(event.detail.action)
+    this.currentTurn.abort()
+    this.currentTurn = this.create(event)
     this.currentTurn.exit()
   }.bind(Turn),
   'turbo:before-render': function (event) {
@@ -134,14 +139,22 @@ Turn.eventListeners = {
     this.currentTurn.enter()
   }.bind(Turn),
   'turbo:load': function () {
-    if (this.currentTurn) this.currentTurn.complete()
+    this.currentTurn.complete()
   }.bind(Turn),
   'popstate': function () {
-    if (this.currentTurn && this.currentTurn.action !== 'restore') {
-      this.currentTurn.abort()
-    }
+    this.currentTurn.action !== 'restore' && this.currentTurn.abort()
   }.bind(Turn)
 }
+
+class NullTurn {
+  abort () {}
+  exit () {}
+  beforeEnter () {}
+  enter () {}
+  complete () {}
+}
+
+Turn.currentTurn = new NullTurn
 
 function prefersReducedMotion () {
   const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
