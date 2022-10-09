@@ -1,11 +1,16 @@
 # Turn
-A starting point for animating page transitions in [Turbo Drive](https://turbo.hotwired.dev/) apps.
+Animate page transitions in [Turbo Drive](https://turbo.hotwired.dev/) apps.
 
-## Basic Usage
+## Installation
+```
+npm install @domchristie/turn
+```
 
-1. Copy `turn.js` and `turn.css` to your project and include them however you build your JavaScript & CSS
+## Usage
+
+1. Include `dist/turn.js` and `dist/turn.css` however you build your JavaScript & CSS
 2. Add `data-turn-enter` and `data-turn-exit` to the elements you wish to animate
-3. Call `Turn.start()` in your application JavaScript file
+3. `import Turn from '@domchristie/turn'` and call `Turn.start()` in your application JavaScript
 4. Navigate between pages … ✨
 
 ## Customizing Animations
@@ -77,6 +82,12 @@ Then in your HTML:
   <!-- … -->
 </main>
 ```
+
+## Disabling Animations
+
+Add `data-turn="false"` to the `<body>` to opt out of animations from that page.
+
+(This currently rather basic, but is limited by the information available in Turbo events. Hopefully improvable if [`turbo:visit` events are fired on the initiating element](https://github.com/hotwired/turbo/pull/750).)
 
 ## Tip & Tricks
 
