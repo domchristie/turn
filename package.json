@@ -1,10 +1,11 @@
 {
   "name": "@domchristie/turn",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Animate page transitions in Turbo Drive apps.",
-  "main": "dist/turn.js",
+  "main": "dist/turn.min.js",
   "scripts": {
     "build": "rollup --config",
+    "prepare": "npm run build",
     "start": "rollup --config --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
