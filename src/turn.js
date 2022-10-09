@@ -1,6 +1,7 @@
 import { motionSafe } from './helpers.js'
 import NullTurn from './null-turn.js'
 import AnimationTurn from './animation-turn.js'
+import SharedElementTransitionTurn from './shared-element-transition-turn.js'
 
 const Turn = {
   start () {
@@ -23,9 +24,10 @@ const Turn = {
   },
 
   create (event) {
+    const supportsTransitions = 'createDocumentTransition' in document
     const Klass = document.body.dataset.turn === 'false'
       ? NullTurn
-      : AnimationTurn
+      : (supportsTransitions ? SharedElementTransitionTurn : AnimationTurn)
     return new Klass(event.detail.action)
   },
 
