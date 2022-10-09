@@ -1,15 +1,20 @@
 import { animationsEnd, camelCase, pascalCase } from './helpers.js'
 
+const DEFAULT_OPTIONS = {
+  animateRestore: false
+}
+
 export default class AnimationTurn {
-  constructor (action) {
+  constructor (action, options = {}) {
     this.action = action
+    this.options = { ...DEFAULT_OPTIONS, ...options }
     this.beforeExitClasses = new Set()
     this.exitClasses = new Set()
     this.enterClasses = new Set()
   }
 
   exit () {
-    if (this.action === 'restore') return
+    if (this.action === 'restore' && !this.options.animateRestore) return
 
     this.animateOut = animationsEnd('[data-turn-exit]')
     this.addClasses('before-exit')
@@ -20,7 +25,7 @@ export default class AnimationTurn {
   }
 
   async beforeEnter (event) {
-    if (this.action === 'restore') return
+    if (this.action === 'restore' && !this.options.animateRestore) return
 
     event.preventDefault()
 
@@ -56,7 +61,7 @@ export default class AnimationTurn {
   }
 
   get shouldAnimateEnter () {
-    if (this.action === 'restore') return false
+    if (this.action === 'restore' && !this.options.animateRestore) return false
     if (this.isPreview) return true
     if (this.hasPreview) return false
     return true

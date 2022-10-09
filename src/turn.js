@@ -26,7 +26,8 @@ const Turn = {
     const Klass = document.body.dataset.turn === 'false'
       ? NullTurn
       : AnimationTurn
-    return new Klass(event.detail.action)
+    const options = JSON.parse(document.body.dataset.turnOptions || '{}')
+    return new Klass(event.detail.action, options)
   },
 
   currentTurn: new NullTurn()
