@@ -4,7 +4,7 @@
   "description": "Animate page transitions in Turbo Drive apps.",
   "main": "dist/turn.min.js",
   "scripts": {
-    "build": "rollup --config",
+    "build": "rollup --config && cp turn.css dist/turn.css",
     "prepare": "npm run build",
     "start": "rollup --config --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
