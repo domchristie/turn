@@ -5,8 +5,8 @@ import AnimationTurn from './animation-turn.js'
 const Turn = {
   start () {
     if (!this.started && motionSafe()) {
-      for (var event in this.eventListeners) {
-        addEventListener(event, this.eventListeners[event])
+      for (const event in this.eventListeners) {
+        window.addEventListener(event, this.eventListeners[event])
       }
       this.started = true
     }
@@ -14,10 +14,10 @@ const Turn = {
 
   stop () {
     if (this.started) {
-      for (var event in this.eventListeners) {
-        removeEventListener(event, this.eventListeners[event])
+      for (const event in this.eventListeners) {
+        window.removeEventListener(event, this.eventListeners[event])
       }
-      this.currentTurn = new NullTurn
+      this.currentTurn = new NullTurn()
       this.started = false
     }
   },
@@ -29,7 +29,7 @@ const Turn = {
     return new Klass(event.detail.action)
   },
 
-  currentTurn: new NullTurn
+  currentTurn: new NullTurn()
 }
 
 Turn.eventListeners = {
@@ -47,7 +47,7 @@ Turn.eventListeners = {
   'turbo:load': function () {
     this.currentTurn.complete()
   }.bind(Turn),
-  'popstate': function () {
+  popstate: function () {
     const fixNonRestoreBack = (
       this.currentTurn.action !== 'restore' &&
       this.currentTurn instanceof AnimationTurn

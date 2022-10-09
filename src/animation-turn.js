@@ -13,7 +13,7 @@ export default class AnimationTurn {
 
     this.animateOut = animationsEnd('[data-turn-exit]')
     this.addClasses('before-exit')
-    requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
       this.addClasses('exit')
       this.removeClasses('before-exit')
     })
