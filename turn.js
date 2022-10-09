@@ -29,6 +29,8 @@ class Turn {
   }
 
   exit () {
+    if (this.action === 'restore') return
+
     this.animateOut = animationsEnd('[data-turn-exit]')
     this.addClasses('before-exit')
     requestAnimationFrame(() => {
