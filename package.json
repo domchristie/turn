@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Animate page transitions in Turbo Drive apps.",
   "main": "dist/turn.min.js",
+  "files": ["dist"],
   "scripts": {
     "build": "rollup --config && cp turn.css dist/turn.css",
     "prepare": "npm run build",
