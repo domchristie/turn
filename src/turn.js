@@ -5,8 +5,8 @@ import AnimationTurn from './animation-turn.js'
 const Turn = {
   start () {
     if (!this.started && motionSafe()) {
-      for (const event in this.eventListeners) {
-        window.addEventListener(event, this.eventListeners[event])
+      for (const event in eventListeners) {
+        window.addEventListener(event, eventListeners[event])
       }
       this.started = true
     }
@@ -14,29 +14,21 @@ const Turn = {
 
   stop () {
     if (this.started) {
-      for (const event in this.eventListeners) {
-        window.removeEventListener(event, this.eventListeners[event])
+      for (const event in eventListeners) {
+        window.removeEventListener(event, eventListeners[event])
       }
       this.currentTurn = new NullTurn()
       this.started = false
     }
   },
 
-  create (event) {
-    const Klass = document.body.dataset.turn === 'false'
-      ? NullTurn
-      : AnimationTurn
-    const options = JSON.parse(document.body.dataset.turnOptions || '{}')
-    return new Klass(event.detail.action, options)
-  },
-
   currentTurn: new NullTurn()
 }
 
-Turn.eventListeners = {
+const eventListeners = {
   'turbo:visit': function (event) {
     this.currentTurn.abort()
-    this.currentTurn = this.create(event)
+    this.currentTurn = create(event.detail.action)
     this.currentTurn.exit()
   }.bind(Turn),
   'turbo:before-render': function (event) {
@@ -55,6 +47,14 @@ Turn.eventListeners = {
     )
     fixNonRestoreBack && this.currentTurn.abort()
   }.bind(Turn)
+}
+
+function create (action) {
+  const Klass = document.body.dataset.turn === 'false' || action === 'replace'
+    ? NullTurn
+    : AnimationTurn
+  const options = JSON.parse(document.body.dataset.turnOptions || '{}')
+  return new Klass(action, options)
 }
 
 export default Turn
