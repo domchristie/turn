@@ -16,11 +16,17 @@ export default class AnimationTurn {
   exit () {
     if (this.action === 'restore' && !this.options.animateRestore) return
 
-    this.animateOut = animationsEnd('[data-turn-exit]')
+    let resolveExit
+    this.animateOut = Promise.all([
+      animationsEnd('[data-turn-exit]'),
+      new Promise((resolve) => { resolveExit = resolve })
+    ])
+
     this.addClasses('before-exit')
     window.requestAnimationFrame(() => {
       this.addClasses('exit')
       this.removeClasses('before-exit')
+      resolveExit()
     })
   }
 
