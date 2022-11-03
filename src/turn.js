@@ -1,6 +1,7 @@
 import { motionSafe } from './helpers.js'
 import NullTurn from './null-turn.js'
 import AnimationTurn from './animation-turn.js'
+import ViewTransitionTurn from './view-transition-turn.js'
 
 const Turn = {
   start () {
@@ -22,7 +23,13 @@ const Turn = {
     }
   },
 
-  currentTurn: new NullTurn()
+  currentTurn: new NullTurn(),
+
+  config: {
+    experimental: {
+      viewTransitions: false
+    }
+  }
 }
 
 const eventListeners = {
@@ -52,9 +59,15 @@ const eventListeners = {
 function create (action) {
   const Klass = document.body.dataset.turn === 'false' || action === 'replace'
     ? NullTurn
-    : AnimationTurn
+    : (useViewTransition() ? ViewTransitionTurn : AnimationTurn)
   const options = JSON.parse(document.body.dataset.turnOptions || '{}')
   return new Klass(action, options)
+}
+
+function useViewTransition () {
+  const enabled = Turn.config.experimental.viewTransitions
+  const supported = 'startViewTransition' in document
+  return enabled && supported
 }
 
 export default Turn
