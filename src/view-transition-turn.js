@@ -4,7 +4,6 @@ export default class ViewTransitionTurn {
   complete () {}
 
   async beforeEnter (event) {
-    event.preventDefault()
     if (this.hasPreview) {
       await this.transition.finished
     } else {
@@ -13,7 +12,6 @@ export default class ViewTransitionTurn {
       this.transition = document.startViewTransition(_ => this.render())
       await this.snapshot
     }
-    event.detail.resume()
   }
 
   render () {

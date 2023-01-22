@@ -30,10 +30,8 @@ export default class AnimationTurn {
     })
   }
 
-  async beforeEnter (event) {
+  async beforeEnter () {
     if (this.action === 'restore' && !this.options.animateRestore) return
-
-    event.preventDefault()
 
     if (this.isPreview) {
       this.hasPreview = true
@@ -42,8 +40,6 @@ export default class AnimationTurn {
       await this.animateOut
       if (this.animateIn) await this.animateIn
     }
-
-    event.detail.resume()
   }
 
   async enter () {

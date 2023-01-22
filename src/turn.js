@@ -38,8 +38,10 @@ const eventListeners = {
     this.currentTurn = create(event.detail.action)
     this.currentTurn.exit()
   }.bind(Turn),
-  'turbo:before-render': function (event) {
-    this.currentTurn.beforeEnter(event)
+  'turbo:before-render': async function (event) {
+    event.preventDefault()
+    await this.currentTurn.beforeEnter()
+    event.detail.resume()
   }.bind(Turn),
   'turbo:render': function () {
     this.currentTurn.enter()
