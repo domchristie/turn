@@ -1,6 +1,10 @@
 export function prefersReducedMotion () {
-  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-  return !mediaQuery || mediaQuery.matches
+  if (typeof window !== 'undefined') {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    return !mediaQuery || mediaQuery.matches
+  } else {
+    return true
+  }
 }
 
 export function motionSafe () {
