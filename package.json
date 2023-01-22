@@ -7,9 +7,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c config/rollup.config.js && rollup -c config/rollup.config.next.js && cp turn.css dist/turn.css",
+    "build": "rollup --config && cp turn.css dist/turn.css",
     "prepare": "npm run build",
-    "start": "rollup -c config/rollup.config.js --watch",
+    "start": "rollup --config --watch",
     "test": "npx standard"
   },
   "repository": {
