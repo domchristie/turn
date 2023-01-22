@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Animate page transitions in Next.js applications",
   "main": "dist/turn.js",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -26,5 +27,9 @@
   "bugs": {
     "url": "https://github.com/domchristie/turn/issues"
   },
-  "homepage": "https://github.com/domchristie/turn#readme"
+  "homepage": "https://github.com/domchristie/turn#readme",
+  "devDependencies": {
+    "rollup": "^3.10.1",
+    "standard": "^17.0.0"
+  }
 }
