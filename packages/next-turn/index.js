@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router.js'
 import { motionSafe } from '../../src/helpers.js'
 import NullTurn from '../../src/null-turn.js'
 import ViewTransitionTurn from '../../src/view-transition-turn.js'
