@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { withRouter } from 'next/router.js'
 import NullTurn from '../../src/null-turn.js'
-import AnimationTurn from './animation-turn.js'
+import AnimationTurn from '../../src/animation-turn.js'
 import ViewTransitionTurn from '../../src/view-transition-turn.js'
 
 let currentTurn = new NullTurn()
