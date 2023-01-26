@@ -1,6 +1,6 @@
 {
   "name": "@domchristie/next-turn",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Animate page transitions in Next.js applications",
   "main": "dist/turn.js",
   "type": "module",
