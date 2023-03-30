@@ -1,4 +1,4 @@
-import { animationsEnd } from './helpers.js'
+import Animations from '../animations.js'
 import BaseTurn from './base-turn.js'
 
 export default class AnimationTurn extends BaseTurn {
@@ -11,15 +11,17 @@ export default class AnimationTurn extends BaseTurn {
   exit () {
     if (this.action === 'restore' && !this.options.animateRestore) return
 
+    const exitAnimations = new Animations('[data-turn-exit]')
+
     let resolveExit
     this.animateOut = Promise.all([
-      animationsEnd('[data-turn-exit]'),
+      exitAnimations.ended,
       new Promise((resolve) => { resolveExit = resolve })
     ])
 
     this.addClasses('before-exit')
     window.requestAnimationFrame(() => {
-      this.addClasses('exit')
+      exitAnimations.start(() => this.addClasses('exit'))
       this.removeClasses('before-exit')
       resolveExit()
     })
@@ -35,8 +37,9 @@ export default class AnimationTurn extends BaseTurn {
 
   enter () {
     if (this.action !== 'restore' || this.options.animateRestore) {
-      this.animateIn = animationsEnd('[data-turn-enter]')
-      this.addClasses('enter')
+      const enterAnimations = new Animations('[data-turn-enter]')
+      this.animateIn = enterAnimations.ended
+      enterAnimations.start(() => this.addClasses('enter'))
     }
   }
 
