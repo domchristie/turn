@@ -30,9 +30,11 @@
       padding: 1rem 2.5%;
       position: relative;
       z-index: 10;
+      contain: layout;
     }
 
     nav a {
+      position: relative;
       display: block;
       font-weight: bold;
       text-decoration: none;
@@ -40,6 +42,19 @@
 
     nav a[aria-current] {
       color: black;
+    }
+
+    nav a[aria-current]::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background-color: black;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      contain: layout;
+      view-transition-name: current;
     }
 
     nav a + a {
@@ -55,8 +70,6 @@
       max-width: 48rem;
       margin: 0 auto;
       contain: layout;
-      page-transition-tag: main;
-      view-transition-name: main;
     }
 
     h1 {
@@ -80,7 +93,7 @@
 </head>
 <body>
   <nav>
-    <a href="index.html" aria-current>Lorem</a>
+    <a href="/" aria-current>Lorem</a>
     <a href="one.html">Ipsum</a>
     <a href="https://github.com/domchristie/turn">Source</a>
   </nav>

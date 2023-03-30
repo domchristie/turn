@@ -3,12 +3,15 @@ import NullTurn from './null-turn.js'
 import AnimationTurn from './animation-turn.js'
 import ViewTransitionTurn from './view-transition-turn.js'
 
+const supportedClassName = ViewTransitionTurn.supported ? 'turn-view-transitions' : 'turn-no-view-transitions'
+
 const Turn = {
   start () {
     if (!this.started && motionSafe()) {
       for (const event in eventListeners) {
         window.addEventListener(event, eventListeners[event])
       }
+      document.documentElement.classList.add(supportedClassName)
       this.started = true
     }
   },
@@ -18,12 +21,19 @@ const Turn = {
       for (const event in eventListeners) {
         window.removeEventListener(event, eventListeners[event])
       }
-      this.currentTurn = new NullTurn()
+      this.animationTurn = new NullTurn()
+      this.viewTransitionTurn = new NullTurn()
+      document.documentElement.classList.remove(supportedClassName)
       this.started = false
     }
   },
 
-  currentTurn: new NullTurn(),
+  animationTurn: new NullTurn(),
+  viewTransitionTurn: new NullTurn(),
+
+  get isPreview () {
+    return document.documentElement.hasAttribute('data-turbo-preview')
+  },
 
   config: {
     experimental: {
@@ -34,42 +44,53 @@ const Turn = {
 
 const eventListeners = {
   'turbo:visit': function (event) {
-    this.currentTurn.abort()
-    this.currentTurn = create(event.detail.action)
-    this.currentTurn.exit()
+    document.documentElement.classList.remove('turn-advance', 'turn-restore')
+    this.hasPreview = undefined
+    this.animationTurn.abort()
+    this.animationTurn = create(AnimationTurn, event.detail.action)
+    if (Turn.config.experimental.viewTransitions) {
+      this.viewTransitionTurn = create(ViewTransitionTurn, event.detail.action)
+    }
+
+    document.documentElement.classList.add(`turn-${event.detail.action}`)
+    this.animationTurn.exit()
   }.bind(Turn),
   'turbo:before-render': async function (event) {
     event.preventDefault()
-    await this.currentTurn.beforeEnter()
+
+    await this.animationTurn.beforeEnter()
+    this.hasPreview
+      ? await this.viewTransitionTurn.finished
+      : await this.viewTransitionTurn.beforeEnter()
+
+    if (this.isPreview) this.hasPreview = true
     event.detail.resume()
   }.bind(Turn),
-  'turbo:render': function () {
-    this.currentTurn.enter()
+  'turbo:render': async function () {
+    const isInitialRender = this.isPreview || !this.hasPreview
+    if (isInitialRender) {
+      this.enter = this.viewTransitionTurn.enter()
+      await this.enter
+      this.animationTurn.enter()
+    }
   }.bind(Turn),
-  'turbo:load': function () {
-    this.currentTurn.complete()
+  'turbo:load': async function () {
+    await this.enter
+    this.animationTurn.complete()
+    document.documentElement.classList.remove('turn-advance', 'turn-restore')
   }.bind(Turn),
   popstate: function () {
-    const fixNonRestoreBack = (
-      this.currentTurn.action !== 'restore' &&
-      this.currentTurn instanceof AnimationTurn
-    )
-    fixNonRestoreBack && this.currentTurn.abort()
+    const fixNonRestoreBack = this.animationTurn.action !== 'restore'
+    fixNonRestoreBack && this.animationTurn.abort()
   }.bind(Turn)
 }
 
-function create (action) {
-  const Klass = document.body.dataset.turn === 'false' || action === 'replace'
-    ? NullTurn
-    : (useViewTransition() ? ViewTransitionTurn : AnimationTurn)
+function create (Klass, action) {
+  if (!Klass.supported || document.body.dataset.turn === 'false' || action === 'replace') {
+    Klass = NullTurn
+  }
   const options = JSON.parse(document.body.dataset.turnOptions || '{}')
   return new Klass(action, options)
-}
-
-function useViewTransition () {
-  const enabled = Turn.config.experimental.viewTransitions
-  const supported = 'startViewTransition' in document
-  return enabled && supported
 }
 
 export default Turn

@@ -1,8 +1,9 @@
 export default class NullTurn {
-  snapshot = Promise.resolve()
+  static supported = true
   exit () {}
   beforeEnter () {}
   enter () {}
   complete () {}
   abort () {}
+  finished = Promise.resolve()
 }

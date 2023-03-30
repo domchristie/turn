@@ -1,17 +1,19 @@
-export default class ViewTransitionTurn {
+import BaseTurn from './base-turn.js'
+
+export default class ViewTransitionTurn extends BaseTurn {
+  static supported = !!document.startViewTransition
+
+  prepare () {
+    this.snapshot = new Promise(resolve => { this.snapshat = resolve })
+    this.transition = document.startViewTransition(_ => this.render())
+    return this.snapshot
+  }
+
   exit () {}
 
-  complete () {}
-
-  async beforeEnter (event) {
-    if (this.hasPreview) {
-      await this.transition.finished
-    } else {
-      this.hasPreview = this.isPreview
-      this.snapshot = new Promise(resolve => { this.snapshat = resolve })
-      this.transition = document.startViewTransition(_ => this.render())
-      await this.snapshot
-    }
+  async beforeEnter () {
+    this.addClasses('transition')
+    await this.prepare()
   }
 
   render () {
@@ -19,13 +21,17 @@ export default class ViewTransitionTurn {
     return new Promise(resolve => { this.rendered = resolve })
   }
 
-  enter () {
+  async enter () {
     this.rendered()
+    await this.finished
+    this.removeClasses('transition')
   }
+
+  complete () {}
 
   abort () {}
 
-  get isPreview () {
-    return document.documentElement.hasAttribute('data-turbo-preview')
+  get finished () {
+    return this.transition?.finished
   }
 }

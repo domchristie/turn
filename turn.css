@@ -1,16 +1,16 @@
 [data-turn-exit],
 [data-turn-enter] {
   animation-timing-function: cubic-bezier(0.65, 0.05, 0.35, 1);
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards, none;
 }
 
 html.turn-exit [data-turn-exit] {
-  animation-name: fade-out-up;
+  animation-name: fade-out, up-out;
   animation-duration: .3s;
 }
 
 html.turn-enter [data-turn-enter] {
-  animation-name: fade-in-up;
+  animation-name: fade-in, up-in;
   animation-duration: .6s;
 }
 
@@ -19,26 +19,47 @@ html.turn-exit [data-turn-exit] {
   will-change: transform, opacity;
 }
 
-@keyframes fade-out-up {
+html.turn-advance.turn-transition [data-turn-exit],
+html.turn-advance.turn-transition [data-turn-enter] {
+  opacity: 0;
+}
+
+@keyframes fade-out {
   0% {
-   opacity: 1;
-   transform: translateZ(0)
+   opacity: 1
   }
 
   100% {
-   opacity: 0;
-   transform: translate3d(0, -4rem, 0)
+    opacity: 0
   }
 }
 
-@keyframes fade-in-up {
+@keyframes fade-in {
   0% {
-   opacity: 0;
-   transform: translate3d(0, 4rem, 0)
+    opacity: 0
   }
 
   100% {
-   opacity: 1;
-   transform: translateZ(0)
+    opacity: 1
+  }
+}
+
+@keyframes up-out {
+  0% {
+    transform: translateZ(0)
+  }
+
+  100% {
+    transform: translate3d(0, -4rem, 0)
+  }
+}
+
+@keyframes up-in {
+  0% {
+    transform: translate3d(0, 4rem, 0)
+  }
+
+  100% {
+    transform: translateZ(0)
   }
 }
