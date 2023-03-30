@@ -47,6 +47,7 @@ const eventListeners = {
     document.documentElement.classList.remove('turn-advance', 'turn-restore')
     this.hasPreview = undefined
     this.animationTurn.abort()
+    this.viewTransitionTurn.abort()
     this.animationTurn = create(AnimationTurn, event.detail.action)
     if (Turn.config.experimental.viewTransitions) {
       this.viewTransitionTurn = create(ViewTransitionTurn, event.detail.action)
