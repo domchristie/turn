@@ -75,6 +75,7 @@ export default class Controller {
     removeActionClasses()
     addActionClass(event.detail.action)
     this.hasPreview = undefined
+    this._render = undefined
     this.animationTurn.abort()
     this.viewTransitionTurn.abort()
   }
