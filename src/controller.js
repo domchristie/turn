@@ -107,7 +107,7 @@ function removeActionClasses () {
 }
 
 function create (Klass, action) {
-  if (!Klass.supported || document.body.dataset.turn === 'false' || action === 'replace') {
+  if (!Klass.supported || document.body.dataset.turn === 'false') {
     Klass = NullTurn
   }
   const options = JSON.parse(document.body.dataset.turnOptions || '{}')
