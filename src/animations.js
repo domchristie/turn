@@ -1,5 +1,5 @@
 
-import { animationsEnd } from './src/helpers.js'
+import { animationsEnd } from './helpers.js'
 
 export default class Animations {
   constructor (selector) {

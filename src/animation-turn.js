@@ -1,4 +1,4 @@
-import Animations from '../animations.js'
+import Animations from './animations.js'
 import BaseTurn from './base-turn.js'
 
 export default class AnimationTurn extends BaseTurn {
