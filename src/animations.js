@@ -8,8 +8,8 @@ export default class Animations {
     this.ended = new Promise((resolve) => { this.resolve = resolve })
   }
 
-  async start (callback) {
-    callback()
+  async start (applyAnimations) {
+    applyAnimations()
 
     if (this.elements.every((e) => e.getAnimations().length)) {
       await animationsEnd(this.selector)
