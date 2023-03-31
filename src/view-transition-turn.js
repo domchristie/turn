@@ -35,6 +35,8 @@ export default class ViewTransitionTurn extends BaseTurn {
     this.removeClasses('transition')
   }
 
+  rendered () {}
+
   get finished () {
     return this.transition?.finished
   }
