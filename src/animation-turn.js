@@ -9,8 +9,6 @@ export default class AnimationTurn extends BaseTurn {
   }
 
   exit () {
-    if (this.action === 'restore' && !this.options.animateRestore) return
-
     const exitAnimations = new Animations('[data-turn-exit]')
 
     let resolveExit
@@ -28,23 +26,19 @@ export default class AnimationTurn extends BaseTurn {
   }
 
   async beforeEnter () {
-    if (this.action !== 'restore' || this.options.animateRestore) {
-      await this.animateOut
-      this.removeClasses('exit')
-      await this.animateIn // only present on post-preview enters
-    }
+    await this.animateOut
+    this.removeClasses('exit')
+    await this.animateIn // only present on post-preview enters
   }
 
   enter () {
-    if (this.action !== 'restore' || this.options.animateRestore) {
-      const enterAnimations = new Animations('[data-turn-enter]')
-      this.animateIn = enterAnimations.ended
-      enterAnimations.start(() => this.addClasses('enter'))
-    }
+    const enterAnimations = new Animations('[data-turn-enter]')
+    this.animateIn = enterAnimations.ended
+    enterAnimations.start(() => this.addClasses('enter'))
+    return this.animateIn
   }
 
   async complete () {
-    await this.animateIn
     this.removeClasses('enter')
   }
 
@@ -52,5 +46,9 @@ export default class AnimationTurn extends BaseTurn {
     this.removeClasses('before-exit')
     this.removeClasses('exit')
     this.removeClasses('enter')
+  }
+
+  get finished () {
+    return this.animateIn
   }
 }

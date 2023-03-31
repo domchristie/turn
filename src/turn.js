@@ -70,13 +70,12 @@ const eventListeners = {
   'turbo:render': async function () {
     const isInitialRender = this.isPreview || !this.hasPreview
     if (isInitialRender) {
-      this.enter = this.viewTransitionTurn.enter()
-      await this.enter
-      this.animationTurn.enter()
+      this.render = this.viewTransitionTurn.enter()
+        .then(() => this.animationTurn.enter())
     }
   }.bind(Turn),
   'turbo:load': async function () {
-    await this.enter
+    await this.render
     this.animationTurn.complete()
     document.documentElement.classList.remove('turn-advance', 'turn-restore')
   }.bind(Turn),
