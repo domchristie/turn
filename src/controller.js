@@ -102,7 +102,8 @@ function addActionClass (action) {
 }
 
 function removeActionClasses () {
-  document.documentElement.classList.remove(ACTIONS)
+  const classList = document.documentElement.classList
+  classList.remove.apply(classList, ACTIONS.map(a => `turn-${a}`))
 }
 
 function create (Klass, action) {
