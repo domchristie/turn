@@ -11,6 +11,7 @@ export default class BaseTurn {
     this.beforeExitClasses = new Set()
     this.exitClasses = new Set()
     this.enterClasses = new Set()
+    this.beforeTransitionClasses = new Set()
     this.transitionClasses = new Set()
   }
 
