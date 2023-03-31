@@ -26,6 +26,7 @@ export default class ViewTransitionTurn extends BaseTurn {
     this.rendered()
     this.removeClasses('before-transition')
     await this.finished
+    await Promise.resolve() // next tick
     this.removeClasses('transition')
   }
 
