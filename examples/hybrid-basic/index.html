@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turn Demo: Animations Only</title>
+
+  <link rel="stylesheet" href="./turn.css">
+  <link rel="stylesheet" href="../theme.css">
+  <script src="https://unpkg.com/@hotwired/turbo@7.0.1/dist/turbo.es2017-umd.js"></script>
+  <script type="module">
+    import Turn from '../../src/turn.js'
+    window.Turn = window.Turn || Turn
+    Turn.start()
+    Turn.config.experimental.viewTransitions = true
+  </script>
+</head>
+<body>
+  <nav>
+    <a href="index.html" aria-current>Turn</a>
+    <a href="one.html">Lorem</a>
+    <a href="https://github.com/domchristie/turn">Source</a>
+  </nav>
+  <main data-turn-enter data-turn-exit>
+    <h1 data-turn-enter data-turn-exit>Turn: Hybrid Basic</h1>
+    <p>This demo uses both View Transitions and standard CSS animations. Standard animations are used for exit and enter, whereas View Transitions are used for the transition of the navigation. The exit animations happen immediately, then once the new page has loaded, it waits for the View Transition to complete, before performing the enter animation. Browsers that do not support View Transitions will still see the exit/enter animations, but the navigation won't be transitioned.</p>
+    <hr>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </main>
+</body>
+</html>

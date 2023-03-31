@@ -1,0 +1,103 @@
+/* ========= */
+/* = Theme = */
+/* ========= */
+
+/* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+:root {
+  --step--2: clamp(0.78rem, calc(0.77rem + 0.03vw), 0.80rem);
+  --step--1: clamp(0.94rem, calc(0.92rem + 0.11vw), 1.00rem);
+  --step-0: clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
+  --step-1: clamp(1.35rem, calc(1.28rem + 0.37vw), 1.56rem);
+  --step-2: clamp(1.62rem, calc(1.50rem + 0.58vw), 1.95rem);
+  --step-3: clamp(1.94rem, calc(1.77rem + 0.87vw), 2.44rem);
+  --step-4: clamp(2.33rem, calc(2.08rem + 1.25vw), 3.05rem);
+  --step-5: clamp(2.80rem, calc(2.45rem + 1.77vw), 3.82rem);
+}
+
+body {
+  margin: 0 auto;
+  font-family: system-ui, sans-serif;
+  background-color: white;
+  font-size: var(--step-1);
+  color: black;
+  line-height: 1.5;
+  background: #f9f9f9;
+}
+
+ol {
+  margin: 1em 0;
+  padding-left: 0.75em;
+}
+
+ol li + li {
+  margin-top: 0.5em;
+}
+
+a {
+  color: #06f;
+}
+
+nav {
+  display: flex;
+  background-color: white;
+  border-bottom: 2px solid #e6e6e6;
+  padding: 1rem 2.5%;
+  position: relative;
+  z-index: 10;
+  contain: layout;
+  view-transition-name: nav;
+}
+
+nav a {
+  position: relative;
+  display: block;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+nav a[aria-current] {
+  color: black;
+}
+
+nav a[aria-current]::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: black;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  contain: layout;
+  view-transition-name: current;
+}
+
+nav a + a {
+  margin-left: 2.5%;
+}
+
+nav a:last-child {
+  margin-left: auto;
+}
+
+main {
+  width: 95%;
+  max-width: 48rem;
+  margin: 0 auto;
+  contain: layout;
+}
+
+h1 {
+  font-size: var(--step-5);
+  font-weight: 800;
+  color: black;
+  line-height: 1;
+  contain: layout;
+  view-transition-name: heading;
+}
+
+p {
+  font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+  line-height: 1.25;
+}

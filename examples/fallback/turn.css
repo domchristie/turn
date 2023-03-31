@@ -4,18 +4,18 @@
   animation-fill-mode: forwards;
 }
 
-html.turn-advance.turn-exit [data-turn-exit] {
+html.turn-no-view-transitions.turn-advance.turn-exit [data-turn-exit] {
   animation-name: fade-out-up;
   animation-duration: .3s;
 }
 
-html.turn-advance.turn-enter [data-turn-enter] {
+html.turn-no-view-transitions.turn-advance.turn-enter [data-turn-enter] {
   animation-name: fade-in-up;
   animation-duration: .6s;
 }
 
-html.turn-before-exit [data-turn-exit],
-html.turn-exit [data-turn-exit] {
+html.turn-no-view-transitions.turn-before-exit [data-turn-exit],
+html.turn-no-view-transitions.turn-exit [data-turn-exit] {
   will-change: transform, opacity;
 }
 
