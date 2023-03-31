@@ -15,9 +15,7 @@ html.turn-advance.turn-enter [data-turn-enter] {
 }
 
 html.turn-advance.turn-before-transition [data-turn-exit],
-html.turn-advance.turn-before-transition [data-turn-enter],
-html.turn-advance.turn-transition [data-turn-exit],
-html.turn-advance.turn-transition [data-turn-enter] {
+html.turn-advance.turn-transition [data-turn-exit] {
   opacity: 0;
 }
 
@@ -25,7 +23,6 @@ html.turn-before-exit [data-turn-exit],
 html.turn-exit [data-turn-exit] {
   will-change: transform, opacity;
 }
-
 
 @keyframes fade-out-up {
   0% {

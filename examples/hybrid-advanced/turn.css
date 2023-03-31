@@ -26,9 +26,7 @@ html.turn-transition::view-transition-new(heading) {
 }
 
 html.turn-advance.turn-before-transition [data-turn-exit],
-html.turn-advance.turn-before-transition [data-turn-enter],
-html.turn-no-view-transitions.turn-advance.turn-transition [data-turn-exit],
-html.turn-no-view-transitions.turn-advance.turn-transition [data-turn-enter] {
+html.turn-no-view-transitions.turn-advance.turn-transition [data-turn-exit] {
   opacity: 0;
 }
 
