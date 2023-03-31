@@ -15,7 +15,6 @@ export default class Animations {
       await animationsEnd(this.selector)
       this.resolve()
     } else {
-      console.warn(`No animations for ${this.selector}`)
       this.resolve()
     }
   }
