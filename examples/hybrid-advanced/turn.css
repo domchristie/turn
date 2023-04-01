@@ -14,14 +14,14 @@ html.turn-no-view-transitions.turn-advance.turn-enter [data-turn-enter] {
   animation-duration: .6s;
 }
 
-html::view-transition-new(root),
-html::view-transition-new(heading) {
+html.turn-advance::view-transition-new(root),
+html.turn-advance::view-transition-new(heading) {
   animation-timing-function: cubic-bezier(0.65, 0.05, 0.35, 1);
   animation-name: fade-in-up;
   animation-duration: .6s;
 }
 
-html.turn-transition::view-transition-new(heading) {
+html.turn-advance.turn-transition::view-transition-new(heading) {
   --offset: 8rem;
 }
 

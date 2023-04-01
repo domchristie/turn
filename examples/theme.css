@@ -17,7 +17,7 @@
 
 body {
   margin: 0 auto;
-  font-family: system-ui, sans-serif;
+  font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
   background-color: white;
   font-size: var(--step-1);
   color: black;
@@ -27,7 +27,7 @@ body {
 
 ol {
   margin: 1em 0;
-  padding-left: 0.75em;
+  padding-left: 1.25em;
 }
 
 ol li + li {
@@ -45,6 +45,7 @@ nav {
   padding: 1rem 2.5%;
   position: relative;
   z-index: 10;
+  font-family: system-ui, sans-serif;
   contain: layout;
   view-transition-name: nav;
 }
@@ -89,6 +90,7 @@ main {
 }
 
 h1 {
+  font-family: system-ui, sans-serif;
   font-size: var(--step-5);
   font-weight: 800;
   color: black;
@@ -98,6 +100,60 @@ h1 {
 }
 
 p {
-  font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
-  line-height: 1.25;
+  line-height: 1.4;
+}
+
+pre {
+  width: 100%;
+  overflow-x: auto;
+  font-size: var(--step-0);
+}
+
+code {
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+}
+
+.timelines {
+  text-align: center;
+}
+
+.animation-timeline,
+.events-timeline {
+  display: grid;
+}
+
+.animation {
+  font-family: system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--step--1);
+  padding: 0.25rem 0.5rem;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+.animation-exit {
+  text-align: left;
+  background-image: linear-gradient(to right, black, white);
+}
+
+.animation-enter {
+  text-align: right;
+  background-image: linear-gradient(to left, black, white);
+}
+
+.animation-transition {
+  text-align: center;
+  color: black;
+  background-image: linear-gradient(to left, black, white, white, black);
+}
+
+.events-timeline {
+  gap: 0.125rem;
+}
+
+.event {
+  background-color: #e6e6e6;
+  padding: 0 0.5rem;
+  font-size: var(--step--2);
 }

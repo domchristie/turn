@@ -20,17 +20,46 @@
   <nav>
     <a href="index.html" aria-current>Turn</a>
     <a href="one.html">Lorem</a>
-    <a href="https://github.com/domchristie/turn">Source</a>
+    <a href="https://github.com/domchristie/turn/blob/main/examples/animations-only/">Source</a>
   </nav>
-  <main data-turn-enter data-turn-exit>
-    <h1 data-turn-enter data-turn-exit>Turn: Animations</h1>
-    <p><a href="https://github.com/domchristie/turn">Turn</a> applies various class names to the HTML element during the
-    lifecycle of a navigation. The CSS can then hook into these class names to apply animations. This demo only uses a basic set of CSS animations (without View Transitions).</p>
-    <hr>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <main data-turbo="false" data-turn-enter data-turn-exit>
+    <h1 data-turn-enter data-turn-exit>Turn: Basic</h1>
+
+    <div class="timelines">
+      <div class="animation-timeline" style="grid-template-columns: 1fr 1fr">
+        <div class="animation animation-exit">Exit</div>
+        <div class="animation animation-enter">Enter</div>
+      </div>
+    </div>
+
+    <p>This demonstrates page animations with <a href="https://github.com/domchristie/turn">Turn</a>. Tap the Turn/Lorem links in the navigation bar to view.</p>
+    <p><a href="../view-transitions-only">Next example</a> or <a href="../">back to examples</a></p>
+    <p>Turn applies various class names to the HTML element during the lifecycle of a navigation. Targeted elements can then use these classes to apply animations. This demo only uses a basic set of CSS animations (without View Transitions).</p>
+
+    <pre><code>/* Set up animation timings for targeted elements */
+[data-turn-exit],
+[data-turn-enter] {
+  animation-timing-function: cubic-bezier(0.65, 0.05, 0.35, 1);
+  animation-fill-mode: forwards;
+}
+
+/* Apply exit animations */
+html.turn-advance.turn-exit [data-turn-exit] {
+  animation-name: fade-out-up;
+  animation-duration: .3s;
+}
+
+/* Apply enter animations */
+html.turn-advance.turn-enter [data-turn-enter] {
+  animation-name: fade-in-up;
+  animation-duration: .6s;
+}
+
+/* For smoothness */
+html.turn-before-exit [data-turn-exit],
+html.turn-exit [data-turn-exit] {
+  will-change: transform, opacity;
+}</code></pre>
   </main>
 </body>
 </html>
