@@ -16,7 +16,7 @@
 }
 
 body {
-  margin: 0 auto;
+  margin: 0 auto 2.25em 0;
   font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
   background-color: white;
   font-size: var(--step-1);
@@ -90,6 +90,7 @@ main {
 }
 
 h1 {
+  margin: 0.667em 0;
   font-family: system-ui, sans-serif;
   font-size: var(--step-5);
   font-weight: 800;
@@ -99,8 +100,15 @@ h1 {
   view-transition-name: heading;
 }
 
+h2 {
+  font-size: var(--step-2);
+  margin: 0.667em 0;
+  font-family: system-ui, sans-serif;
+}
+
 p {
   line-height: 1.4;
+  margin: 1em 0;
 }
 
 pre {
@@ -148,12 +156,9 @@ code {
   background-image: linear-gradient(to left, black, white, white, black);
 }
 
-.events-timeline {
-  gap: 0.125rem;
-}
-
-.event {
-  background-color: #e6e6e6;
-  padding: 0 0.5rem;
-  font-size: var(--step--2);
+.or {
+  font-family: system-ui, sans-serif;
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-transform: uppercase;
 }

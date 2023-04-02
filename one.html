@@ -1,108 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Turn Demo</title>
-  <style>
-    /* ========= */
-    /* = Theme = */
-    /* ========= */
-
-    body {
-      margin: 0 auto;
-      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-      background-color: white;
-      font-size: 1.5rem;
-      color: #666;
-    }
-
-    a {
-      color: #06f;
-    }
-
-    nav {
-      display: flex;
-      background-color: white;
-      border-bottom: 2px solid #e6e6e6;
-      padding: 1rem 2.5%;
-      position: relative;
-      z-index: 10;
-      contain: layout;
-    }
-
-    nav a {
-      position: relative;
-      display: block;
-      color: #06f;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    nav a[aria-current] {
-      color: black;
-    }
-
-    nav a[aria-current]::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 4px;
-      background-color: black;
-      left: 0;
-      right: 0;
-      bottom: -6px;
-      contain: layout;
-      view-transition-name: current;
-    }
-
-    nav a + a {
-      margin-left: 2.5%;
-    }
-
-    nav a:last-child {
-      margin-left: auto;
-    }
-
-    main {
-      width: 95%;
-      max-width: 48rem;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 4rem;
-      font-weight: 900;
-      color: black;
-      line-height: 1;
-    }
-
-    p {
-      line-height: 1.25;
-    }
-  </style>
-  <link rel="stylesheet" href="./turn.css">
-  <script src="https://unpkg.com/@hotwired/turbo@7.0.1/dist/turbo.es2017-umd.js"></script>
-  <script type="module">
-    import Turn from './src/turn.js'
-    window.Turn = window.Turn || Turn
-    Turn.start()
-  </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./examples/theme.css">
+  <meta http-equiv="refresh" content="0; url=./">
 </head>
 <body>
-  <nav>
-    <a href="/">Lorem</a>
-    <a href="one.html" aria-current>Ipsum</a>
-    <a href="https://github.com/domchristie/turn">Source</a>
-  </nav>
-  <main data-turn-enter data-turn-exit>
-    <h1 data-turn-enter data-turn-exit>Ipsum</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </main>
 </body>
 </html>

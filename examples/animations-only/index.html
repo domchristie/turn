@@ -32,9 +32,8 @@
       </div>
     </div>
 
-    <p>This demonstrates page animations with <a href="https://github.com/domchristie/turn">Turn</a>. Tap the Turn/Lorem links in the navigation bar to view.</p>
-    <p><a href="../view-transitions-only">Next example</a> or <a href="../">back to examples</a></p>
-    <p>Turn applies various class names to the HTML element during the lifecycle of a navigation. Targeted elements can then use these classes to apply animations. This demo only uses a basic set of CSS animations (without View Transitions).</p>
+    <p>This demonstrates page animations with <a href="https://github.com/domchristie/turn">Turn</a> (without View Transitions). Tap the Turn/Lorem links in the navigation bar to view.</p>
+    <p><a href="../view-transitions-only">Next example</a> or <a href="../../">back to examples</a></p>
 
     <pre><code>/* Set up animation timings for targeted elements */
 [data-turn-exit],
@@ -59,7 +58,9 @@ html.turn-advance.turn-enter [data-turn-enter] {
 html.turn-before-exit [data-turn-exit],
 html.turn-exit [data-turn-exit] {
   will-change: transform, opacity;
-}</code></pre>
+}
+
+/* (Define animation keyframes here) */</code></pre>
   </main>
 </body>
 </html>

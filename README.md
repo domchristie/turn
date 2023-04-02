@@ -61,6 +61,7 @@ The following class names are added to the HTML element at various time during a
 
 ### `turn-view-transitions`
 Added on start if the device supports View Transitions, and View Transitions are enabled.
+
 ### `turn-no-view-transitions`
 Added on start if the device does not support View Transitions, or View Transitions are disabled.
 
