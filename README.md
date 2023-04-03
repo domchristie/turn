@@ -2,13 +2,14 @@
 Animate page transitions in [Turbo Drive](https://turbo.hotwired.dev/) apps.
 
 ## Installation
+Install [@hotwired/turbo](https://www.npmjs.com/package/@hotwired/turbo), then
 ```
 npm install @domchristie/turn
 ```
 
 ## Usage
 
-1. Include `dist/turn.js` and `dist/turn.css` however you build your JavaScript & CSS
+1. Include Turbo, `dist/turn.js` and `dist/turn.css` however you build your JavaScript & CSS
 2. Add `data-turn-enter` and `data-turn-exit` to the elements you wish to animate (optional if you're only using View Transitions)
 3. `import Turn from '@domchristie/turn'` and call `Turn.start()` in your application JavaScript
 4. Navigate between pages … ✨
