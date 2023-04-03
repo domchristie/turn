@@ -125,8 +125,7 @@ code {
   text-align: center;
 }
 
-.animation-timeline,
-.events-timeline {
+.animation-timeline {
   display: grid;
 }
 
@@ -161,4 +160,9 @@ code {
   font-size: var(--step--1);
   font-weight: 600;
   text-transform: uppercase;
+}
+
+html.turn-no-view-transitions #no-view-transitions {
+  color: darkred;
+  display: block;
 }
