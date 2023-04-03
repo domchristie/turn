@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turn Demo: Animations Only</title>
+
+  <link rel="stylesheet" href="./turn.css">
+  <link rel="stylesheet" href="../theme.css">
+  <script src="https://unpkg.com/@hotwired/turbo@7.0.1/dist/turbo.es2017-umd.js"></script>
+  <script type="module">
+    import Turn from '../../src/turn.js'
+    window.Turn = window.Turn || Turn
+    Turn.config.experimental.viewTransitions = true
+    Turn.start()
+  </script>
+</head>
+<body>
+  <nav>
+    <a href="index.html" aria-current>Turn</a>
+    <a href="one.html">Lorem</a>
+    <a href="https://github.com/domchristie/turn/blob/main/examples/hybrid-advanced/">Source</a>
+  </nav>
+  <main data-turbo="false" data-turn-enter data-turn-exit>
+    <h1 data-turn-enter data-turn-exit>Turn: Hybrid Advanced</h1>
+    <div class="timelines">
+      <div class="animation-timeline" style="grid-template-columns: 1fr 1fr">
+        <div class="animation animation-exit">Exit</div>
+        <div class="animation animation-transition">View Transition</div>
+      </div>
+      <div class="or">or</div>
+      <div class="animation-timeline" style="grid-template-columns: 1fr 1fr">
+        <div class="animation animation-exit">Exit</div>
+        <div class="animation animation-enter">Enter</div>
+      </div>
+    </div>
+    <p>This is similar to the <a href="../hybrid-basic/">Hybrid Basic example</a>, but instead of waiting for the View Transition to complete, the transition handles enter animations. </p>
+    <p><a href="../../">Back to Examples</a></p>
+
+    <pre><code>/* (Excerpt) */
+
+/* Apply exit animations */
+html.turn-advance.turn-exit [data-turn-exit] {
+  animation-name: fade-out-up;
+  animation-duration: .3s;
+}
+
+/* Only animate enter when View Transitions not supported */
+html.turn-no-view-transitions.turn-advance.turn-enter [data-turn-enter] {
+  animation-name: fade-in-up;
+  animation-duration: .6s;
+}
+
+/* Apply enter animations to new View Transition elements */
+html.turn-advance::view-transition-new(root),
+html.turn-advance::view-transition-new(heading) {
+  animation-name: fade-in-up;
+  animation-duration: .6s;
+}</code></pre>
+    <hr>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </main>
+</body>
+</html>

@@ -9,13 +9,24 @@ html.turn-advance.turn-exit [data-turn-exit] {
   animation-duration: .3s;
 }
 
-html.turn-advance.turn-enter [data-turn-enter] {
+html.turn-no-view-transitions.turn-advance.turn-enter [data-turn-enter] {
   animation-name: fade-in-up;
   animation-duration: .6s;
 }
 
+html.turn-advance::view-transition-new(root),
+html.turn-advance::view-transition-new(heading) {
+  animation-timing-function: cubic-bezier(0.65, 0.05, 0.35, 1);
+  animation-name: fade-in-up;
+  animation-duration: .6s;
+}
+
+html.turn-advance.turn-transition::view-transition-new(heading) {
+  --offset: 8rem;
+}
+
 html.turn-advance.turn-before-transition [data-turn-exit],
-html.turn-advance.turn-transition [data-turn-exit] {
+html.turn-no-view-transitions.turn-advance.turn-transition [data-turn-exit] {
   opacity: 0;
 }
 
@@ -32,14 +43,14 @@ html.turn-exit [data-turn-exit] {
 
   100% {
     opacity: 0;
-    transform: translate3d(0, -4rem, 0)
+    transform: translate3d(0, calc(var(--offset, 4rem) * -1), 0)
   }
 }
 
 @keyframes fade-in-up {
   0% {
     opacity: 0;
-    transform: translate3d(0, 4rem, 0)
+    transform: translate3d(0, var(--offset, 4rem), 0)
   }
 
   100% {

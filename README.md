@@ -9,22 +9,32 @@ npm install @domchristie/turn
 ## Usage
 
 1. Include `dist/turn.js` and `dist/turn.css` however you build your JavaScript & CSS
-2. Add `data-turn-enter` and `data-turn-exit` to the elements you wish to animate
+2. Add `data-turn-enter` and `data-turn-exit` to the elements you wish to animate (optional if you're only using View Transitions)
 3. `import Turn from '@domchristie/turn'` and call `Turn.start()` in your application JavaScript
 4. Navigate between pages … ✨
+
+## View Transitions
+
+Turn has experimental support for [View Transitions](https://developer.chrome.com/docs/web-platform/view-transitions/) and can be enabled by setting:
+
+```js
+Turn.config.experimental.viewTransitions = true
+```
+
+before calling `Turn.start()`. View Transitions are started after exit animations. Enter animations wait for View Transitions to complete before starting.
 
 ## Customizing Animations
 
 Turn adds `turn-before-exit`, `turn-exit`, and `turn-enter` classes to the HTML element at the appropriate times. Apply your own animations by scoping your animation rules with this selector. For example:
 
 ```css
-html.turn-exit [data-turn-exit] {
+html.turn-advance.turn-exit [data-turn-exit] {
   animation-name: MY_ANIMATE_OUT;
   animation-duration: .3s;
   animation-fill-mode: forwards;
 }
 
-html.turn-enter [data-turn-enter] {
+html.turn-advance.turn-enter [data-turn-enter] {
   animation-name: MY_ANIMATE_IN;
   animation-duration: .6s;
   animation-fill-mode: forwards;
@@ -44,6 +54,40 @@ This is how `turn.css` is organized, so you may want to get rid of that file alt
 ### Custom Class Names
 
 The values set in the `data-turn-exit` and `data-turn-enter` attributes will be applied as class names to that element. This lets you customize animations for each element. Styles should still be scoped by `html.turn-exit` and `html.turn-enter`.
+
+## Class List
+
+The following class names are added to the HTML element at various time during a navigation lifecycle.
+
+### `turn-view-transitions`
+Added on start if the device supports View Transitions, and View Transitions are enabled.
+
+### `turn-no-view-transitions`
+Added on start if the device does not support View Transitions, or View Transitions are disabled.
+
+### `turn-advance`
+Added when a visit starts and the action is `advance`. You'll probably want to scope most animations with this class. Removed when the navigation has completed and all animations have ended.
+
+### `turn-restore`
+Added when a visit starts and the action is `restore`. Given the number of ways it's possible to navigate back/forward (back button, swipe left/right, `history.back()`), it's generally recommended that restoration visits are not animated. Removed when the navigation has completed and all animations have ended.
+
+### `turn-replace`
+Added when a visit starts and the action is `replace`. Removed when the navigation has completed and all animations have ended.
+
+### `turn-before-exit`
+Added when a visit starts. Useful for optimising animations with `will-change`. (See `turn.css` for an example.) Removed when the exit animations start.
+
+### `turn-exit`
+Added when a visit starts. Use this to scope exit animations. Removed when the exit animations complete.
+
+### `turn-before-transition` (if View Transitions supported & enabled)
+Added after the exit animations and any request has completed, but before the View Transitions have taken their snapshot. Useful when combining View Transitions with custom exit/enter animations. To avoid a flash of content, use this class to target exited elements, and style them in their final "exit" state. (See `turn.css` for an example.) Removed when the transition starts.
+
+### `turn-transition` (if View Transitions supported & enabled)
+Adding during a View Transition. Useful when combining View Transitions with custom exit/enter animations.
+
+### `turn-enter`
+Added after any requests have completed and previous animations/transitions have completed. Removed once the aimations have completed.
 
 ### Usage with Tailwind CSS
 
