@@ -74,10 +74,10 @@ Added when a visit starts and the action is `restore`. Given the number of ways 
 ### `turn-replace`
 Added when a visit starts and the action is `replace`. Removed when the navigation has completed and all animations have ended.
 
-### `turn-before-exit
+### `turn-before-exit`
 Added when a visit starts. Useful for optimising animations with `will-change`. (See `turn.css` for an example.) Removed when the exit animations start.
 
-### `turn-exit
+### `turn-exit`
 Added when a visit starts. Use this to scope exit animations. Removed when the exit animations complete.
 
 ### `turn-before-transition` (if View Transitions supported & enabled)
