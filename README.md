@@ -123,7 +123,7 @@ module.exports = {
 Then in your HTML:
 
 ```html
-<main data-turn-exit="turn-exit:animate-exit" data-turn-enter="turn-exit:animate-enter">
+<main data-turn-exit="turn-exit:animate-exit" data-turn-enter="turn-enter:animate-enter">
   <!-- … -->
 </main>
 ```
