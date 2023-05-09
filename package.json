@@ -1,6 +1,7 @@
 {
   "name": "@domchristie/turn",
   "version": "2.0.0-0",
+  "type": "module",
   "description": "Animate page transitions in Turbo Drive apps.",
   "main": "dist/turn.min.js",
   "files": [
