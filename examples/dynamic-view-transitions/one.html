@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turn Demo: Animations Only</title>
+
+  <link rel="stylesheet" href="../theme.css">
+  <script src="https://unpkg.com/@hotwired/turbo"></script>
+  <script type="module">
+    import Turn from '../../src/turn.js'
+    window.Turn = window.Turn || Turn
+    Turn.config.experimental.viewTransitions = true
+    Turn.start()
+  </script>
+</head>
+<body>
+  <nav>
+    <a href="https://github.com/domchristie/turn">Source</a>
+  </nav>
+  <main>
+    <a data-transition="video_1 video_1_title" href="index.html">Videos</a>
+    <h1 id="video_1_title" data-view-transition-name="title">Big Buck Bunny</h1>
+    <video id="video_1" data-turbo-permanent data-view-transition-name="video" controls src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" poster="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg""></video>
+  </main>
+</body>
+</html>
