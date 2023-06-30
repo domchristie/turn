@@ -1,6 +1,7 @@
 import NullTurn from './null-turn.js'
 import AnimationTurn from './animation-turn.js'
 import ViewTransitionTurn from './view-transition-turn.js'
+import Initiation from './initiation.js'
 
 const VIEW_TRANSITIONS = 'turn-view-transitions'
 const NO_VIEW_TRANSITIONS = 'turn-no-view-transitions'
@@ -15,6 +16,7 @@ export default class Controller {
     this.animationTurn = new NullTurn()
     this.viewTransitionTurn = new NullTurn()
     addSupportClass(this.config)
+    this.initiation = new Initiation()
   }
 
   stop () {
@@ -23,6 +25,15 @@ export default class Controller {
     this.animationTurn = new NullTurn()
     this.viewTransitionTurn = new NullTurn()
     removeSupportClasses()
+    this.initiation.reset()
+  }
+
+  click (event) {
+    this.initiation.startWithClick(event)
+  }
+
+  beforeFetchRequest (event) {
+    if (event.target.tagName === 'FORM') this.initiation.startWithSubmit(event)
   }
 
   visit (event) {
@@ -40,9 +51,14 @@ export default class Controller {
     event.preventDefault()
 
     await this.animationTurn.beforeEnter()
+    const details = {
+      newBody: event.detail.newBody,
+      sourceUrl: this.initiation.sourceUrl,
+      initiator: this.initiation.initiator
+    }
     this.hasPreview
       ? await this.viewTransitionTurn.finished
-      : await this.viewTransitionTurn.beforeEnter()
+      : await this.viewTransitionTurn.beforeEnter(details)
 
     if (this.isPreview) this.hasPreview = true
     event.detail.resume()
