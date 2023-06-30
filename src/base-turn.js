@@ -35,4 +35,11 @@ export default class BaseTurn {
       this[`${camelCase(type)}Classes`].forEach((klass) => element.classList.remove(klass))
     })
   }
+
+  dispatch (eventName, { target = document, detail = {}, bubbles = true, cancelable = true } = {}) {
+    const type = `turn:${eventName}`
+    const event = new window.CustomEvent(type, { detail, bubbles, cancelable })
+    target.dispatchEvent(event)
+    return event
+  }
 }
