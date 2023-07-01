@@ -1,22 +1,25 @@
 window.addEventListener('turn:before-transition', function ({ detail }) {
-  const { sourceUrl, action, initiator, newBody } = detail
+  let { sourceUrl, action, initiator, newBody } = detail
 
+  // For restoration visits, make a _reasonable_ guess at which link/form might have
+  // visited the current page (`sourceUrl`), then apply those names.
   if (action === 'restore') {
-    [...newBody.querySelectorAll('a[data-transition]')].forEach(function (a) {
-      if (a.href === sourceUrl) {
-        apply(a, newBody)
-        apply(a)
-      }
-    })
-  } else if (initiator.dataset?.transition) {
+    const selector = 'a[data-transition], form[data-transition]'
+    initiator = [...newBody.querySelectorAll(selector)].find(
+      i => i.href === sourceUrl || i.action === sourceUrl
+    ) || document.documentElement
+  } else {
     reset()
-    apply(initiator, newBody)
-    apply(initiator)
   }
+
+  apply(initiator)
+  apply(initiator, newBody)
 })
 
-function apply (transitioner, body = document.body) {
-  const viewTransitionIds = transitioner.dataset.transition.split(' ')
+function apply (initiator, body = document.body) {
+  if (!initiator.dataset.transition) return
+
+  const viewTransitionIds = initiator.dataset.transition.split(' ')
 
   viewTransitionIds.forEach(function (id) {
     const element = body.querySelector(`[id='${id}']`)
