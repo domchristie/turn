@@ -88,7 +88,17 @@ Added after the exit animations and any request has completed, but before the Vi
 Adding during a View Transition. Useful when combining View Transitions with custom exit/enter animations.
 
 ### `turn-enter`
-Added after any requests have completed and previous animations/transitions have completed. Removed once the aimations have completed.
+Added after any requests have completed and previous animations/transitions have completed. Removed once the animations have completed.
+
+## Events
+
+### `turn:before-transition`
+Dispatched just before a View Transition is started. Ideal for setting up `view-transition-name`s before the View Transition performs its capturing. `event.detail` includes:
+- `action`: the action of the visit (`advance` or `restore`)
+- `initiator`: the element the visit was triggered from (an `a`, `form`, or `html` element if a Back/Forward navigation)
+- `newBody`: the incoming `<body>` that will be transitioned to
+- `sourceUrl`: the URL the page is transitioning from
+
 
 ### Usage with Tailwind CSS
 
