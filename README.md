@@ -92,12 +92,41 @@ Added after any requests have completed and previous animations/transitions have
 
 ## Events
 
-### `turn:before-transition`
-Dispatched just before a View Transition is started. Ideal for setting up `view-transition-name`s before the View Transition performs its capturing. `event.detail` includes:
+`event.details` may contain:
 - `action`: the action of the visit (`advance` or `restore`)
 - `initiator`: the element the visit was triggered from (an `a`, `form`, or `html` element if a Back/Forward navigation)
-- `newBody`: the incoming `<body>` that will be transitioned to
 - `sourceUrl`: the URL the page is transitioning from
+- `url`: the URL the page is transitioning to
+- `newBody`: the incoming `<body>` that will be transitioned to
+
+### `turn:before-exit`
+Dispatched before exit animations are started. `event.detail` includes:
+- `action`
+- `initiator`
+- `sourceUrl`
+- `url`
+
+### `turn:before-transition`
+Dispatched before a View Transition is started (after exit animations if present). Ideal for setting up `view-transition-name`s before the View Transition performs its capturing. `event.detail` includes:
+- `action`
+- `initiator`
+- `newBody`
+- `sourceUrl`
+
+### `turn:before-enter`
+Dispatched before enter animations are started (after Vire Transitions if present). `event.detail` includes:
+- `action`
+- `initiator`
+- `newBody`
+- `sourceUrl`
+
+### `turn:enter`
+Dispatched after the all transitions and animations have completed. `event.detail` includes:
+- `action`
+- `initiator`
+- `sourceUrl`
+- `url`
+- `timing`: the visit's timing metrics
 
 
 ### Usage with Tailwind CSS

@@ -46,8 +46,8 @@ const eventListeners = {
   'turbo:render': async function () {
     this.controller.render()
   }.bind(Turn),
-  'turbo:load': async function () {
-    this.controller.load()
+  'turbo:load': async function (event) {
+    this.controller.load(event)
   }.bind(Turn),
   popstate: function () {
     this.controller.popstate()

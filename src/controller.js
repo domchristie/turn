@@ -82,10 +82,14 @@ export default class Controller {
     }
   }
 
-  async load () {
+  async load (event) {
     await this._render
-    this.animationTurn.complete()
     removeActionClasses()
+    this.animationTurn.complete({
+      ...event.detail,
+      sourceUrl: this.currentUrl,
+      initiator: this.initiation.initiator
+    })
   }
 
   popstate (event) {
