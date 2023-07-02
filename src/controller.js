@@ -16,7 +16,7 @@ export default class Controller {
     this.animationTurn = new NullTurn()
     this.viewTransitionTurn = new NullTurn()
     addSupportClass(this.config)
-    this.initiation = new Initiation()
+    this.currentUrl = window.location.toString()
   }
 
   stop () {
@@ -25,15 +25,18 @@ export default class Controller {
     this.animationTurn = new NullTurn()
     this.viewTransitionTurn = new NullTurn()
     removeSupportClasses()
-    this.initiation.reset()
+    delete this.initiation
+    delete this.currentUrl
   }
 
   click (event) {
-    this.initiation.startWithClick(event)
+    this.initiation = Initiation.startWithClick(event)
   }
 
   beforeFetchRequest (event) {
-    if (event.target.tagName === 'FORM') this.initiation.startWithSubmit(event)
+    if (event.target.tagName === 'FORM') {
+      this.initiation = Initiation.startWithSubmit(event)
+    }
   }
 
   visit (event) {
@@ -44,27 +47,34 @@ export default class Controller {
       this.viewTransitionTurn = create(ViewTransitionTurn, event.detail.action)
     }
 
-    this.animationTurn.exit()
+    this.animationTurn.exit({
+      ...event.detail,
+      sourceUrl: this.currentUrl,
+      initiator: this.initiation.initiator
+    })
   }
 
   async beforeRender (event) {
     event.preventDefault()
 
-    await this.animationTurn.beforeEnter()
-    const details = {
+    const detail = {
       newBody: event.detail.newBody,
-      sourceUrl: this.initiation.sourceUrl,
+      sourceUrl: this.currentUrl,
       initiator: this.initiation.initiator
     }
+    await this.animationTurn.beforeEnter(detail)
+
     this.hasPreview
       ? await this.viewTransitionTurn.finished
-      : await this.viewTransitionTurn.beforeEnter(details)
+      : await this.viewTransitionTurn.beforeEnter(detail)
 
     if (this.isPreview) this.hasPreview = true
     event.detail.resume()
   }
 
   render () {
+    this.currentUrl = window.location.toString()
+
     const isInitialRender = this.isPreview || !this.hasPreview
     if (isInitialRender) {
       this._render = this.viewTransitionTurn.enter()
@@ -78,7 +88,8 @@ export default class Controller {
     removeActionClasses()
   }
 
-  popstate () {
+  popstate (event) {
+    this.initiation = Initiation.startWithHistory(event)
     const fixNonRestoreBack = this.animationTurn.action !== 'restore'
     fixNonRestoreBack && this.animationTurn.abort()
   }
