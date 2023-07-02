@@ -89,7 +89,6 @@ export default class Controller {
   }
 
   popstate (event) {
-    this.initiation = Initiation.startWithHistory(event)
     const fixNonRestoreBack = this.animationTurn.action !== 'restore'
     fixNonRestoreBack && this.animationTurn.abort()
   }
@@ -105,6 +104,9 @@ export default class Controller {
     this._render = undefined
     this.animationTurn.abort()
     this.viewTransitionTurn.abort()
+    if (event.detail.action === 'restore') {
+      this.initiation = Initiation.startWithHistory(event)
+    }
   }
 }
 
