@@ -17,20 +17,14 @@ export default class Initiation {
 
   startWithClick (event) {
     this.initiator = event.target
-    window.removeEventListener('turbo:before-visit', this.#beforeVisit)
-    window.addEventListener('turbo:before-visit', this.#beforeVisit, {
-      once: true
-    })
+    this.#once('turbo:before-visit', this.#beforeVisit)
     return this
   }
 
   startWithSubmit (event) {
     if (event.target.tagName === 'FORM') {
       this.initiator = event.target
-      window.removeEventListener('turbo:submit-start', this.#submitStart)
-      window.addEventListener('turbo:submit-start', this.#submitStart, {
-        once: true
-      })
+      this.#once('turbo:submit-start', this.#submitStart)
     }
     return this
   }
@@ -54,5 +48,10 @@ export default class Initiation {
 
   #submissionStopped (submission) {
     return submission?.state === 5
+  }
+
+  #once (name, handler) {
+    window.removeEventListener(name, handler)
+    window.addEventListener(name, handler, { once: true })
   }
 }
