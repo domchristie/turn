@@ -49,7 +49,7 @@ export default class Controller {
 
     this.animationTurn.exit({
       ...event.detail,
-      sourceUrl: this.currentUrl,
+      referrer: this.currentUrl,
       initiator: this.initiation.initiator
     })
   }
@@ -59,7 +59,7 @@ export default class Controller {
 
     const detail = {
       newBody: event.detail.newBody,
-      sourceUrl: this.currentUrl,
+      referrer: this.currentUrl,
       initiator: this.initiation.initiator
     }
     await this.animationTurn.beforeEnter(detail)
@@ -87,7 +87,7 @@ export default class Controller {
     removeActionClasses()
     this.animationTurn.complete({
       ...event.detail,
-      sourceUrl: this.currentUrl,
+      referrer: this.currentUrl,
       initiator: this.initiation.initiator
     })
   }

@@ -95,7 +95,7 @@ Added after any requests have completed and previous animations/transitions have
 `event.details` may contain:
 - `action`: the action of the visit (`advance` or `restore`)
 - `initiator`: the element the visit was triggered from (an `a`, `form`, or `html` element if a Back/Forward navigation)
-- `sourceUrl`: the URL the page is transitioning from
+- `referrer`: the URL the page is transitioning from
 - `url`: the URL the page is transitioning to
 - `newBody`: the incoming `<body>` that will be transitioned to
 
@@ -103,7 +103,7 @@ Added after any requests have completed and previous animations/transitions have
 Dispatched before exit animations are started. `event.detail` includes:
 - `action`
 - `initiator`
-- `sourceUrl`
+- `referrer`
 - `url`
 
 ### `turn:before-transition`
@@ -111,20 +111,20 @@ Dispatched before a View Transition is started (after exit animations if present
 - `action`
 - `initiator`
 - `newBody`
-- `sourceUrl`
+- `referrer`
 
 ### `turn:before-enter`
 Dispatched before enter animations are started (after Vire Transitions if present). `event.detail` includes:
 - `action`
 - `initiator`
 - `newBody`
-- `sourceUrl`
+- `referrer`
 
 ### `turn:enter`
 Dispatched after the all transitions and animations have completed. `event.detail` includes:
 - `action`
 - `initiator`
-- `sourceUrl`
+- `referrer`
 - `url`
 - `timing`: the visit's timing metrics
 

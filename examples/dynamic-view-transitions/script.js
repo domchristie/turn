@@ -1,12 +1,12 @@
 window.addEventListener('turn:before-transition', function ({ detail }) {
-  let { sourceUrl, action, initiator, newBody } = detail
+  let { referrer, action, initiator, newBody } = detail
 
   // For restoration visits, make a _reasonable_ guess at which link/form might have
-  // visited the current page (`sourceUrl`), then apply those names.
+  // visited the current page (`referrer`), then apply those names.
   if (action === 'restore') {
     const selector = 'a[data-transition], form[data-transition]'
     initiator = [...newBody.querySelectorAll(selector)].find(
-      i => i.href === sourceUrl || i.action === sourceUrl
+      i => i.href === referrer || i.action === referrer
     ) || document.documentElement
   } else {
     reset()
