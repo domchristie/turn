@@ -123,7 +123,6 @@ Dispatched before enter animations are started (after Vire Transitions if presen
 ### `turn:enter`
 Dispatched after the all transitions and animations have completed. `event.detail` includes:
 - `action`
-- `initiator`
 - `referrer`
 - `url`
 - `timing`: the visit's timing metrics

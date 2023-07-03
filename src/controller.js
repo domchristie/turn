@@ -1,7 +1,6 @@
 import NullTurn from './null-turn.js'
 import AnimationTurn from './animation-turn.js'
 import ViewTransitionTurn from './view-transition-turn.js'
-import Initiation from './initiation.js'
 
 const VIEW_TRANSITIONS = 'turn-view-transitions'
 const NO_VIEW_TRANSITIONS = 'turn-no-view-transitions'
@@ -25,18 +24,16 @@ export default class Controller {
     this.animationTurn = new NullTurn()
     this.viewTransitionTurn = new NullTurn()
     removeSupportClasses()
-    delete this.initiation
+    delete this.initiator
     delete this.currentUrl
   }
 
   click (event) {
-    this.initiation = Initiation.startWithClick(event)
+    this.initiator = event.target
   }
 
-  beforeFetchRequest (event) {
-    if (event.target.tagName === 'FORM') {
-      this.initiation = Initiation.startWithSubmit(event)
-    }
+  submitStart (event) {
+    this.initiator = event.target
   }
 
   visit (event) {
@@ -50,7 +47,7 @@ export default class Controller {
     this.animationTurn.exit({
       ...event.detail,
       referrer: this.currentUrl,
-      initiator: this.initiation.initiator
+      initiator: this.initiator
     })
   }
 
@@ -60,7 +57,7 @@ export default class Controller {
     const detail = {
       newBody: event.detail.newBody,
       referrer: this.currentUrl,
-      initiator: this.initiation.initiator
+      initiator: this.initiator
     }
     await this.animationTurn.beforeEnter(detail)
 
@@ -74,6 +71,7 @@ export default class Controller {
 
   render () {
     this.currentUrl = window.location.toString()
+    delete this.initiator
 
     const isInitialRender = this.isPreview || !this.hasPreview
     if (isInitialRender) {
@@ -87,8 +85,7 @@ export default class Controller {
     removeActionClasses()
     this.animationTurn.complete({
       ...event.detail,
-      referrer: this.currentUrl,
-      initiator: this.initiation.initiator
+      referrer: this.currentUrl
     })
   }
 
@@ -108,8 +105,8 @@ export default class Controller {
     this._render = undefined
     this.animationTurn.abort()
     this.viewTransitionTurn.abort()
-    if (event.detail.action === 'restore') {
-      this.initiation = Initiation.startWithHistory(event)
+    if (event.detail.action === 'restore' || !this.initiator) {
+      this.initiator = document.documentElement
     }
   }
 }

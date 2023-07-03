@@ -37,8 +37,8 @@ const eventListeners = {
   'turbo:visit': function (event) {
     this.controller.visit(event)
   }.bind(Turn),
-  'turbo:before-fetch-request': function (event) {
-    this.controller.beforeFetchRequest(event)
+  'turbo:submit-start': function (event) {
+    this.controller.submitStart(event)
   }.bind(Turn),
   'turbo:before-render': async function (event) {
     this.controller.beforeRender(event)
