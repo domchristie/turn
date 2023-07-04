@@ -25,7 +25,7 @@ const Turn = {
 
   config: {
     experimental: {
-      viewTransitions: false
+      viewTransitions: true
     }
   }
 }

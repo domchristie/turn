@@ -40,9 +40,7 @@ export default class Controller {
     this.reset(event)
 
     this.animationTurn = create(AnimationTurn, event.detail.action)
-    if (this.config.experimental.viewTransitions) {
-      this.viewTransitionTurn = create(ViewTransitionTurn, event.detail.action)
-    }
+    this.viewTransitionTurn = create(ViewTransitionTurn, event.detail.action)
 
     this.animationTurn.exit({
       ...event.detail,
@@ -111,11 +109,9 @@ export default class Controller {
   }
 }
 
-function addSupportClass (config) {
+function addSupportClass () {
   document.documentElement.classList.add(
-    ViewTransitionTurn.supported && config.experimental.viewTransitions
-      ? VIEW_TRANSITIONS
-      : NO_VIEW_TRANSITIONS
+    ViewTransitionTurn.supported ? VIEW_TRANSITIONS : NO_VIEW_TRANSITIONS
   )
 }
 
