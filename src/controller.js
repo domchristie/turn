@@ -15,6 +15,7 @@ export default class Controller {
     this.animationTurn = new NullTurn()
     this.viewTransitionTurn = new NullTurn()
     addSupportClass(this.config)
+    this.currentUrl = window.location.toString()
   }
 
   stop () {
@@ -23,6 +24,16 @@ export default class Controller {
     this.animationTurn = new NullTurn()
     this.viewTransitionTurn = new NullTurn()
     removeSupportClasses()
+    delete this.initiator
+    delete this.currentUrl
+  }
+
+  click (event) {
+    this.initiator = event.target
+  }
+
+  submitStart (event) {
+    this.initiator = event.target
   }
 
   visit (event) {
@@ -33,22 +44,35 @@ export default class Controller {
       this.viewTransitionTurn = create(ViewTransitionTurn, event.detail.action)
     }
 
-    this.animationTurn.exit()
+    this.animationTurn.exit({
+      ...event.detail,
+      referrer: this.currentUrl,
+      initiator: this.initiator
+    })
   }
 
   async beforeRender (event) {
     event.preventDefault()
 
-    await this.animationTurn.beforeEnter()
+    const detail = {
+      newBody: event.detail.newBody,
+      referrer: this.currentUrl,
+      initiator: this.initiator
+    }
+    await this.animationTurn.beforeEnter(detail)
+
     this.hasPreview
       ? await this.viewTransitionTurn.finished
-      : await this.viewTransitionTurn.beforeEnter()
+      : await this.viewTransitionTurn.beforeEnter(detail)
 
     if (this.isPreview) this.hasPreview = true
     event.detail.resume()
   }
 
   render () {
+    this.currentUrl = window.location.toString()
+    delete this.initiator
+
     const isInitialRender = this.isPreview || !this.hasPreview
     if (isInitialRender) {
       this._render = this.viewTransitionTurn.enter()
@@ -56,13 +80,16 @@ export default class Controller {
     }
   }
 
-  async load () {
+  async load (event) {
     await this._render
-    this.animationTurn.complete()
     removeActionClasses()
+    this.animationTurn.complete({
+      ...event.detail,
+      referrer: this.currentUrl
+    })
   }
 
-  popstate () {
+  popstate (event) {
     const fixNonRestoreBack = this.animationTurn.action !== 'restore'
     fixNonRestoreBack && this.animationTurn.abort()
   }
@@ -78,6 +105,9 @@ export default class Controller {
     this._render = undefined
     this.animationTurn.abort()
     this.viewTransitionTurn.abort()
+    if (event.detail.action === 'restore' || !this.initiator) {
+      this.initiator = document.documentElement
+    }
   }
 }
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turn Demo: Animations Only</title>
+
+  <link rel="stylesheet" href="../theme.css">
+  <script src="https://unpkg.com/@hotwired/turbo"></script>
+  <script type="module">
+    import Turn from '../../src/turn.js'
+    window.Turn = window.Turn || Turn
+    Turn.config.experimental.viewTransitions = true
+    Turn.start()
+  </script>
+  <script src="script.js"></script>
+</head>
+<body>
+  <nav>
+    <a href="index.html" aria-current>Videos</a>
+    <a href="https://github.com/domchristie/turn/blob/main/examples/view-transitions-only/">Source</a>
+  </nav>
+  <main>
+    <h1>Turn: Dynamic Names</h1>
+
+    <ul class="videos">
+      <li>
+        <a
+          href="one.html"
+          style="font-family: system-ui; font-weight: 800; display: block"
+          id="video_1_title"
+          data-transition="video_1 video_1_title"
+          data-view-transition-name="title">Big Buck Bunny</a>
+        <video
+          controls
+          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          poster="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
+          id="video_1"
+          data-turbo-permanent
+          data-view-transition-name="video"></video>
+      </li>
+      <li>
+        <a
+          href="two.html"
+          id="video_2_title"
+          style="font-family: system-ui; font-weight: 800; display: block"
+          data-transition="video_2 video_2_title"
+          data-view-transition-name="title">Elephants Dream</a>
+        <video
+          controls
+          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+          poster="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg"
+          id="video_2"
+          data-turbo-permanent
+          data-view-transition-name="video"></video>
+      </li>
+    </ul>
+
+    <form action="one.html" method="get" data-transition="video_1 video_1_title"><input type="submit"></form>
+
+    <p hidden id="no-view-transitions"><em>Your browser does not support View Transitions, so you'll not see any animations.</em></p>
+  </main>
+</body>
+</html>

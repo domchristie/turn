@@ -166,3 +166,35 @@ html.turn-no-view-transitions #no-view-transitions {
   color: darkred;
   display: block;
 }
+
+.videos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--step--2);
+}
+
+video {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+  contain: layout;
+}
+
+::view-transition-old(title) {
+  display: none;
+}
+
+::view-transition-new(title) {
+  animation: none;
+}
+
+::view-transition-old(video) {
+  display: none;
+}
+
+::view-transition-new(video) {
+  animation: none;
+}

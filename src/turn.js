@@ -31,8 +31,14 @@ const Turn = {
 }
 
 const eventListeners = {
+  'turbo:click': function (event) {
+    this.controller.click(event)
+  }.bind(Turn),
   'turbo:visit': function (event) {
     this.controller.visit(event)
+  }.bind(Turn),
+  'turbo:submit-start': function (event) {
+    this.controller.submitStart(event)
   }.bind(Turn),
   'turbo:before-render': async function (event) {
     this.controller.beforeRender(event)
@@ -40,8 +46,8 @@ const eventListeners = {
   'turbo:render': async function () {
     this.controller.render()
   }.bind(Turn),
-  'turbo:load': async function () {
-    this.controller.load()
+  'turbo:load': async function (event) {
+    this.controller.load(event)
   }.bind(Turn),
   popstate: function () {
     this.controller.popstate()

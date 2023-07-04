@@ -11,8 +11,11 @@ export default class ViewTransitionTurn extends BaseTurn {
 
   exit () {}
 
-  async beforeEnter () {
+  async beforeEnter (detail) {
     this.addClasses('before-transition')
+    this.dispatch('before-transition', {
+      detail: { ...detail, action: this.action }
+    })
     await this.prepare()
   }
 

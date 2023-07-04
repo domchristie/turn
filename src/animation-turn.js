@@ -4,11 +4,7 @@ import BaseTurn from './base-turn.js'
 export default class AnimationTurn extends BaseTurn {
   static supported = true
 
-  constructor (action, options = {}) {
-    super(action, options = {})
-  }
-
-  exit () {
+  exit (detail) {
     const exitAnimations = new Animations('[data-turn-exit]')
 
     let resolveExit
@@ -18,6 +14,8 @@ export default class AnimationTurn extends BaseTurn {
     ])
 
     this.addClasses('before-exit')
+    this.dispatch('before-exit', { detail })
+
     window.requestAnimationFrame(() => {
       exitAnimations.start(() => this.addClasses('exit'))
       this.removeClasses('before-exit')
@@ -25,10 +23,15 @@ export default class AnimationTurn extends BaseTurn {
     })
   }
 
-  async beforeEnter () {
+  async beforeEnter (detail) {
     await this.animateOut
     this.removeClasses('exit')
-    await this.animateIn // only present on post-preview enters
+    if (this.animateIn) await this.animateIn // only present on post-preview enters
+    else {
+      this.dispatch('before-enter', {
+        detail: { ...detail, action: this.action }
+      })
+    }
   }
 
   enter () {
@@ -38,8 +41,9 @@ export default class AnimationTurn extends BaseTurn {
     return this.animateIn
   }
 
-  async complete () {
+  async complete (detail) {
     this.removeClasses('enter')
+    this.dispatch('enter', { detail: { ...detail, action: this.action } })
   }
 
   abort () {
