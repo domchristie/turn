@@ -14,6 +14,16 @@ npm install @domchristie/turn
 3. `import Turn from '@domchristie/turn'` and call `Turn.start()` in your application JavaScript
 4. Navigate between pages … ✨
 
+## View Transitions
+
+Turn has experimental support for [View Transitions](https://developer.chrome.com/docs/web-platform/view-transitions/) and can be enabled by setting:
+
+```js
+Turn.config.experimental.viewTransitions = true
+```
+
+before calling `Turn.start()`. View Transitions are started after exit animations. Enter animations wait for View Transitions to complete before starting.
+
 ## Customizing Animations
 
 Turn adds `turn-before-exit`, `turn-exit`, and `turn-enter` classes to the HTML element at the appropriate times. Apply your own animations by scoping your animation rules with this selector. For example:

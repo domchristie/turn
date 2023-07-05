@@ -11,6 +11,8 @@
   <script src="https://unpkg.com/@hotwired/turbo"></script>
   <script type="module">
     import Turn from '../../src/turn.js'
+    window.Turn = window.Turn || Turn
+    Turn.config.experimental.viewTransitions = true
     Turn.start()
   </script>
 </head>
