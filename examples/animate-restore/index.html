@@ -46,7 +46,7 @@
     <p>This demonstrates how to animate Back/Forward navigations with <a href="https://github.com/domchristie/turn">Turn</a> (without View Transitions). Tap the Lorem/Back links in the navigation bar to view, then use the browser's Back/Forward buttons to see the difference.</p>
     <p><a href="../view-transitions-only">Next example</a> or <a href="../../">back to examples</a></p>
 
-    <p>Our Back link includes a <code style="font-size: 0.875em">data-back</code> attribute. When this is clicked, we prevent the defaults, apply a <code style="font-size: 0.875em">data-animate-restore</code> attribute to the HTML element, and navigate back via the history API. Then once the animations have completed, we tidy up.</p>
+    <p>Our Back link includes a <code style="font-size: 0.875em">data-back</code> attribute. When this is clicked, we prevent the default, apply a <code style="font-size: 0.875em">data-animate-restore</code> attribute to the HTML element, and navigate back via the history API. Then once the animations have completed, we tidy up.</p>
 
         <pre><code>addEventListener('click', function (event) {
   if (event.target.dataset?.back != null) {
