@@ -10,8 +10,6 @@
   <script src="https://unpkg.com/@hotwired/turbo"></script>
   <script type="module">
     import Turn from '../../src/turn.js'
-    window.Turn = window.Turn || Turn
-    Turn.config.experimental.viewTransitions = true
     Turn.start()
   </script>
 </head>
@@ -29,9 +27,7 @@
       </div>
     </div>
 
-    <p>This demonstrates animated page navigations with View Transitions and <a href="https://github.com/domchristie/turn">Turn</a>. Tap the Turn/Lorem links in the navigation bar to view. No custom CSS is required for the default animations, but View Transitions need to be enabled in Turn:</p>
-
-    <pre><code>Turn.config.experimental.viewTransitions = true</code></pre>
+    <p>This demonstrates animated page navigations with View Transitions and <a href="https://github.com/domchristie/turn">Turn</a>. Tap the Turn/Lorem links in the navigation bar to view. No custom CSS is required for the default animations.</p>
 
     <p hidden id="no-view-transitions"><em>Your browser does not support View Transitions, so you'll not see any animations.</em></p>
     <p><a href="../fallback/">Next example</a> or <a href="../../">back to examples</a></p>
