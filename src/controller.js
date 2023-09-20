@@ -39,8 +39,8 @@ export default class Controller {
   visit (event) {
     this.reset(event)
 
-    this.animationTurn = create(AnimationTurn, event.detail.action)
-    this.viewTransitionTurn = create(ViewTransitionTurn, event.detail.action)
+    this.animationTurn = create(AnimationTurn, event.detail.action, event.detail.direction)
+    this.viewTransitionTurn = create(ViewTransitionTurn, event.detail.action, event.detail.direction)
 
     this.animationTurn.exit({
       ...event.detail,
@@ -132,10 +132,10 @@ function removeActionClasses () {
   classList.remove.apply(classList, ACTIONS.map(a => `turn-${a}`))
 }
 
-function create (Klass, action) {
+function create (Klass, action, direction) {
   if (!Klass.supported || document.body.dataset.turn === 'false') {
     Klass = NullTurn
   }
   const options = JSON.parse(document.body.dataset.turnOptions || '{}')
-  return new Klass(action, options)
+  return new Klass(action, direction, options)
 }

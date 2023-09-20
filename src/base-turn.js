@@ -5,14 +5,18 @@ const DEFAULT_OPTIONS = {
 }
 
 export default class BaseTurn {
-  constructor (action, options = {}) {
+  constructor (action, direction = 'none', options = {}) {
     this.action = action
+    this.direction = direction
     this.options = { ...DEFAULT_OPTIONS, ...options }
     this.beforeExitClasses = new Set()
     this.exitClasses = new Set()
     this.enterClasses = new Set()
     this.beforeTransitionClasses = new Set()
     this.transitionClasses = new Set()
+    this.forwardClasses = new Set()
+    this.backClasses = new Set()
+    this.noneClasses = new Set()
   }
 
   addClasses (type) {

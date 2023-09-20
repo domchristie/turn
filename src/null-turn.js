@@ -1,5 +1,6 @@
 export default class NullTurn {
   static supported = true
+  direction = 'none'
   exit () {}
   async beforeEnter () {}
   async enter () {}

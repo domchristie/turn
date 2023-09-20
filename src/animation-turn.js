@@ -17,7 +17,10 @@ export default class AnimationTurn extends BaseTurn {
     this.dispatch('before-exit', { detail })
 
     window.requestAnimationFrame(() => {
-      exitAnimations.start(() => this.addClasses('exit'))
+      exitAnimations.start(() => {
+        this.addClasses(this.direction)
+        this.addClasses('exit')
+      })
       this.removeClasses('before-exit')
       resolveExit()
     })
@@ -43,6 +46,7 @@ export default class AnimationTurn extends BaseTurn {
 
   async complete (detail) {
     this.removeClasses('enter')
+    this.removeClasses(this.direction)
     this.dispatch('enter', { detail: { ...detail, action: this.action } })
   }
 
@@ -50,6 +54,7 @@ export default class AnimationTurn extends BaseTurn {
     this.removeClasses('before-exit')
     this.removeClasses('exit')
     this.removeClasses('enter')
+    this.removeClasses(this.direction)
   }
 
   get finished () {
