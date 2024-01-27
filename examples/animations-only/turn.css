@@ -1,3 +1,9 @@
+/* Temporary fix for https: //github.com/domchristie/turn/issues/13 */
+.turn-view-transitions.turn-transition [data-turn-enter],
+.turn-view-transitions.turn-before-transition [data-turn-enter] {
+  opacity: 0;
+}
+
 [data-turn-exit],
 [data-turn-enter] {
   animation-timing-function: cubic-bezier(0.65, 0.05, 0.35, 1);
